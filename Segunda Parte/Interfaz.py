@@ -377,6 +377,8 @@ def aluminio ():
     windows_alum = tk.Tk()
     windows_alum.title("Asientos en aluminio")
     windows_alum.geometry("800x600")
+    windows_alum.configure(bg="#FFF9ED")
+
     windows_alum.mainloop()
 
 #========================Ventana donde se muestra los asientos de la categoria Diamante==============================================================================================
