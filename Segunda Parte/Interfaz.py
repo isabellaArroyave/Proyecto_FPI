@@ -320,17 +320,62 @@ def crear_asientos(frame1, row, column):
 def seats_Airplane():
     seats = tk.Tk()
     seats.title("Selección de Asientos de Avión")
-    seats.geometry("1100x800")
-    seats.resizable(0, 0)
+    seats.geometry("1200x900")
+    seats.resizable(1,1)
+    
 
     row = 12  # Número de filas de asientos
     column = 6  # Número de columnas de asientos
-    frame1 = tk.Frame(seats, bg="#F4D7EB")
-    frame1.place(relx= 0.8, rely= 0.2, anchor= "n")
+    frame1 = tk.Frame(seats, bg="#FFF9ED")
+    frame1.place(relx= 0.8, rely= 0.1, anchor= "n")
     seats.configure(bg="#FFF9ED")
-    crear_asientos(frame1, row, column)
 
+
+    # def categoria_alum():
+    #     seats.destroy()
+    #     aluminio()
+    #     aluminio.deiconify()
+
+    aluminio_buttom = tk.Button(seats, text="Aluminio", font = ("Times New Roman", 14) , bg = "light blue")
+    aluminio_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
+
+    # def categoria_diam():
+    #     seats.destroy()
+    #     diamante()
+    #     diamante.deiconify()
+
+    diamante_buttom = tk.Button(seats, text="Diamante", font = ("Times New Roman", 14), bg = "light green")
+    diamante_buttom.place(relx= 0.55, rely= 0.44, anchor= "n")
+
+    # def categoria_premium():
+    #     seats.destroy()
+    #     premium()
+    #     premium.deiconify()
+
+    premium_buttom = tk.Button(seats, text="Premium", font = ("Times New Roman", 14), bg = "lightcoral")
+    premium_buttom.place(relx= 0.55, rely= 0.66, anchor= "n")
+
+
+    crear_asientos(frame1, row, column)
     seats.mainloop()
+
+
+def aluminio ():
+    windows_alum = tk.Tk()
+    windows_alum.mainloop()
+
+
+
+def diamante ():
+    winwdows_diam = tk.Tk()
+    windows_diam.mainloop()
+
+
+
+def premium ():
+    winwdows_prem = tk.Tk()
+    windows_prem.mainloop()    
+
 
 if __name__ == '__main__':
     #main_windows()
