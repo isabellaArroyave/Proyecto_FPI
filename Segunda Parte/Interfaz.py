@@ -41,10 +41,10 @@ def travel_windows():
     # texto_fecha_entry = tk.Entry(marco_derecho_for_destination, font = ("Times New Roman", 14))
     # texto_fecha_entry.pack(pady = 10)
 
-    def ingreso_dato():
+    def tengo_cuenta():
         windows_for_destination.destroy()
-        iniciar_interfaz()
-        iniciar_interfaz.deiconify()
+        inicio_sesion()
+        inicio_sesion.deiconify()
 
     def registro():
         windows_for_destination.destroy()
@@ -55,12 +55,12 @@ def travel_windows():
     registrarse_buttom = tk.Button(marco_izquierdo_for_destination, text = "Registrarme", font = ("Times New Roman",14),command=registro, bg = "light green")
     registrarse_buttom.pack(side = "bottom", anchor = "s", pady = 50)
 
-    cuenta_buttom = tk.Button(marco_derecho_for_destination, text = "Ya tengo cuenta", font = ("Times New Roman",14),command=ingreso_dato, bg = "light green")
+    cuenta_buttom = tk.Button(marco_derecho_for_destination, text = "Ya tengo cuenta", font = ("Times New Roman",14),command=tengo_cuenta, bg = "light green")
     cuenta_buttom.pack(side = "bottom", anchor = "s", pady = 50)
 
     windows_for_destination.mainloop()
 
-#=========================================Ventana para registrarse====================================================
+#=========================================Ventana para registrarse=======================================================================
 
 def main_windows():
     windows = tk.Tk()
@@ -69,15 +69,6 @@ def main_windows():
     windows.resizable(0,0)
     windows.configure(bg="#23BAC4")
 
-    # # nombre_imagen = "avion.jpg"
-    # imagen = Image.open("avion.jpg")
-    # imagen= tamaño.resize = ((200, 200))
-    # # imagen_pil.thumbnail(tamaño)
-    # imagen = ImageTk.PhotoImage(imagen)
-    # label_imagen = tk.Label(windows, image=imagen, bg="#86A789")
-    # label_imagen.imagen = PhotoImage
-    # label_imagen.pack(pady=30)
-    # # label_imagen.place(x=100, y=100)  # Modifiqué las coordenadas para que la imagen sea visible
 
     etiqueta_welcome = tk.Label(windows, text="Welcome to airlines", font=("Times New Roman", 18, "bold"), fg="white", bg="#0B666A")
     etiqueta_welcome.pack(padx=100)
@@ -132,7 +123,7 @@ def main_windows():
     texto_nacionalidad = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_nacionalidad.pack(pady=10)
 
-    def windows_check_in ():
+    def windows_check_in():
         windows.destroy()
         travel_windows()
         travel_windows.deiconify()
@@ -140,7 +131,26 @@ def main_windows():
     check_in_buttom = tk.Button(windows, text="Registrarme", font = ("Times New Roman", 14), command = windows_check_in, bg = "light green")
     check_in_buttom.pack(side = "bottom", anchor = "s", pady= 50)
 
-#============================Ventana de los botones==========================================
+#============================Ventanas de inicio sesion=====================================================================================
+
+def inicio_sesion():
+    sesion = tk.Tk()
+    sesion.title("Iniciar sesión")
+    sesion.geometry("800x600")
+
+    def ingreso_dato():
+        sesion.destroy()
+        iniciar_interfaz()
+        iniciar_interfaz.deiconify()
+
+    sesion_buttom = tk.Button(sesion, text = "Iniciar", font = ("Times New Roman", 14), command = ingreso_dato, bg = "light green")
+    sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
+
+    sesion.mainloop()
+
+
+#============================Ventanas de los 100 botones=====================================================================================
+#============================================================================================================================================
 
 opciones = [
     ['Z328', '2024-06-5', '08:13:00', '10:35:00',  'Santa Marta', 'Bogota'],
@@ -297,6 +307,8 @@ def iniciar_interfaz():
 
     root.mainloop()
 
+#================================Ventana de los asientos===========================================================================
+#===================================================================================================================================
 def asientos():
     root.destroy()
     seats_Airplane()
@@ -331,49 +343,58 @@ def seats_Airplane():
     seats.configure(bg="#FFF9ED")
 
 
-    # def categoria_alum():
-    #     seats.destroy()
-    #     aluminio()
-    #     aluminio.deiconify()
+    def categoria_alum():
+        seats.destroy()
+        aluminio()
+        aluminio.deiconify()
 
-    aluminio_buttom = tk.Button(seats, text="Aluminio", font = ("Times New Roman", 14) , bg = "light blue")
+    aluminio_buttom = tk.Button(seats, text="Aluminio", font = ("Times New Roman", 14), command=categoria_alum , bg = "light blue")
     aluminio_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
-    # def categoria_diam():
-    #     seats.destroy()
-    #     diamante()
-    #     diamante.deiconify()
+    def categoria_diam():
+        seats.destroy()
+        diamante()
+        diamante.deiconify()
 
-    diamante_buttom = tk.Button(seats, text="Diamante", font = ("Times New Roman", 14), bg = "light green")
+    diamante_buttom = tk.Button(seats, text="Diamante", font = ("Times New Roman",14), command = categoria_diam ,bg = "light green")
     diamante_buttom.place(relx= 0.55, rely= 0.44, anchor= "n")
 
-    # def categoria_premium():
-    #     seats.destroy()
-    #     premium()
-    #     premium.deiconify()
+    def categoria_premium():
+        seats.destroy()
+        premium()
+        premium.deiconify()
 
-    premium_buttom = tk.Button(seats, text="Premium", font = ("Times New Roman", 14), bg = "lightcoral")
+    premium_buttom = tk.Button(seats, text="Premium", font = ("Times New Roman", 14), command =categoria_premium, bg = "lightcoral")
     premium_buttom.place(relx= 0.55, rely= 0.66, anchor= "n")
 
 
     crear_asientos(frame1, row, column)
     seats.mainloop()
 
+#========================Ventana donde se muestra los asientos de la categoria Aluminio==============================================================================================
 
 def aluminio ():
     windows_alum = tk.Tk()
+    windows_alum.title("Asientos en aluminio")
+    windows_alum.geometry("800x600")
     windows_alum.mainloop()
 
+#========================Ventana donde se muestra los asientos de la categoria Diamante==============================================================================================
 
 
 def diamante ():
     winwdows_diam = tk.Tk()
+    winwdows_diam.title("Asiento en Diamante")
+    winwdows_diam.geometry("800x600")
     windows_diam.mainloop()
 
+#========================Ventana donde se muestra los asientos de la categoria Premium==============================================================================================
 
 
 def premium ():
     winwdows_prem = tk.Tk()
+    winwdows_prem.title("Asiento en Premium")
+    winwdows_prem.geometry("800x600")
     windows_prem.mainloop()    
 
 
