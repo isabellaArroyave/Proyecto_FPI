@@ -11,7 +11,7 @@ def travel_windows():
 
     frame = tk.Frame(windows_for_destination, bg= "#F5A3C8")
     frame.pack(expand= True)
-    etiqueta_destination = tk.Label(frame, text = "¿Ya tienes una cuenta?",font = ("Times New Roman", 18 ), fg = "white", bg="#F5A3C8")
+    etiqueta_destination = tk.Label(frame, text = "¿Ya tienes una cuenta?",font = ("Times New Roman", 18 ), fg = "black", bg="#F5A3C8")
 
     etiqueta_destination.grid(row = 1, column= 0, padx= 100, pady= 50)
 
@@ -142,6 +142,15 @@ def inicio_sesion():
         sesion.destroy()
         iniciar_interfaz()
         iniciar_interfaz.deiconify()
+
+    # frame1 = tk.Frame(seats, bg="#FFF9ED")
+    # frame1.place(relx= 0.8, rely= 0.1, anchor= "n")
+    
+    correo = tk.Label(sesion, text = "Correo Electronico", font = ("Times New Roman", 18), fg = "white", bg="#0B666A")
+    correo.place(relx= 0.5, rely= 0.3, anchor= "n")
+
+    correo_entry = tk.Entry(sesion, font = ("Times New Roman", 14), bg="#58FF9F")
+    correo_entry.place(relx= 0.5, rely= 0.45, anchor= "n")
 
     sesion_buttom = tk.Button(sesion, text = "Iniciar", font = ("Times New Roman", 14), command = ingreso_dato, bg = "light green")
     sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
@@ -344,7 +353,7 @@ def seats_Airplane():
 
 
     def categoria_alum():
-        seats.destroy()
+        # seats.destroy()
         aluminio()
         aluminio.deiconify()
 
@@ -352,7 +361,7 @@ def seats_Airplane():
     aluminio_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def categoria_diam():
-        seats.destroy()
+        # seats.destroy()
         diamante()
         diamante.deiconify()
 
@@ -360,7 +369,7 @@ def seats_Airplane():
     diamante_buttom.place(relx= 0.55, rely= 0.44, anchor= "n")
 
     def categoria_premium():
-        seats.destroy()
+        # seats.destroy()
         premium()
         premium.deiconify()
 
@@ -372,31 +381,104 @@ def seats_Airplane():
     seats.mainloop()
 
 #========================Ventana donde se muestra los asientos de la categoria Aluminio==============================================================================================
+def crear_asientos_alum(frame_alum, row_alum, column_alum):
+    for r in range(row_alum):
+        for c in range(column_alum):
+            asiento_id_alum = f"{chr(65+c)}{r+1}"
+            if 1 <= (r+1) <= 4:
+                bg_color = "lightblue"
+            elif 5 <= (r+1) <= 8:
+                bg_color = "lightgreen"
+            else:
+                bg_color = "lightcoral"
+            etiqueta_alum = tk.Label(frame_alum, text=asiento_id_alum, width=5, height=2, 
+                                bg= bg_color, relief="raised", borderwidth=1)
+            etiqueta_alum.grid(row=r, column=c, padx=5, pady=5)
+    
 
 def aluminio ():
     windows_alum = tk.Tk()
     windows_alum.title("Asientos en aluminio")
-    windows_alum.geometry("800x600")
+    windows_alum.geometry("1200x900")
     windows_alum.configure(bg="#FFF9ED")
+
+    row_alum = 4  # Número de filas de asientos
+    column_alum = 6  # Número de columnas de asientos
+    frame_alum = tk.Frame(windows_alum, bg="#FFF9ED")
+    frame_alum.place(relx= 0.8, rely= 0.1, anchor= "n")
+    windows_alum.configure(bg="#FFF9ED")
+
+    alum_buttom = tk.Button(windows_alum, text="Aluminio", font = ("Times New Roman", 14), bg = "light blue")
+    alum_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
+
+    crear_asientos_alum(frame_alum, row_alum, column_alum)
 
     windows_alum.mainloop()
 
 #========================Ventana donde se muestra los asientos de la categoria Diamante==============================================================================================
-
+def crear_asientos_diam(frame_diam, row_diam, column_diam):
+    for r in range(row_diam):
+        for c in range(column_diam):
+            asiento_id_diam = f"{chr(65+c)}{r+1}"
+            if 1 <= (r+1) <= 4:
+                bg_color = "lightgreen"
+            
+            etiqueta_diam = tk.Label(frame_diam, text=asiento_id_diam, width=5, height=2, 
+                                bg= bg_color, relief="raised", borderwidth=1)
+            etiqueta_diam.grid(row=r, column=c, padx=5, pady=5)
+    
 
 def diamante ():
-    winwdows_diam = tk.Tk()
-    winwdows_diam.title("Asiento en Diamante")
-    winwdows_diam.geometry("800x600")
+    windows_diam = tk.Tk()
+    windows_diam.title("Asiento en Diamante")
+    windows_diam.geometry("1200x900")
+    windows_diam.configure(bg="#FFF9ED")
+
+    row_diam = 4  # Número de filas de asientos
+    column_diam = 6  # Número de columnas de asientos
+    frame_diam = tk.Frame(windows_diam, bg="#FFF9ED")
+    frame_diam.place(relx= 0.8, rely= 0.1, anchor= "n")
+    windows_diam.configure(bg="#FFF9ED")
+
+    diam_buttom = tk.Button(windows_diam, text="Diamante", font = ("Times New Roman", 14), bg = "light blue")
+    diam_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
+
+    crear_asientos_diam(frame_diam, row_diam, column_diam)
+
+
     windows_diam.mainloop()
 
 #========================Ventana donde se muestra los asientos de la categoria Premium==============================================================================================
-
+def crear_asientos_prem(frame_prem, row_prem, column_prem):
+    for r in range(row_prem):
+        for c in range(column_prem):
+            asiento_id_prem = f"{chr(65+c)}{r+1}"
+            if 1 <= (r+1) <= 4:
+                bg_color = "lightcoral"
+            
+            etiqueta_prem = tk.Label(frame_prem, text=asiento_id_prem, width=5, height=2, 
+                                bg= bg_color, relief="raised", borderwidth=1)
+            etiqueta_prem.grid(row=r, column=c, padx=5, pady=5)
 
 def premium ():
-    winwdows_prem = tk.Tk()
-    winwdows_prem.title("Asiento en Premium")
-    winwdows_prem.geometry("800x600")
+    windows_prem = tk.Tk()
+    windows_prem.title("Asiento en Premium")
+    windows_prem.geometry("1200x900")
+    windows_prem.configure(bg="#FFF9ED")
+
+    row_prem = 4  # Número de filas de asientos
+    column_prem = 6  # Número de columnas de asientos
+    frame_prem = tk.Frame(windows_prem, bg="#FFF9ED")
+    frame_prem.place(relx= 0.8, rely= 0.1, anchor= "n")
+    windows_prem.configure(bg="#FFF9ED")
+
+    prem_buttom = tk.Button(windows_prem, text="Premium", font = ("Times New Roman", 14) , bg = "light blue")
+    prem_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
+
+    crear_asientos_prem(frame_prem, row_prem, column_prem)
+
+
+
     windows_prem.mainloop()    
 
 
