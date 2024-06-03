@@ -1,11 +1,78 @@
 import random
-def buy_ticket():
-    pass
+def card_verification():
+    while True:
+        try:
+            card_num = input("Enter your card number: ")
+            if len(card_num) < 16 or len(card_num) > 16:
+                raise ValueError("The card number must be 16 digits")
+            cvv = input("Enter the cvv: ")     
+            if len(cvv) < 3 or len(cvv) > 3:
+                raise ValueError("The cvv must be 3 digits")
+            print("verified")
+            return card_num
+        except:
+            print("Please, enter the information correctly", ValueError)
 
 def read_user():
-    pass
+    while True:
+        try:
+            gender = str(input("GENDER: "))
+            first_name = str(input("FIRST NAME: "))
+            last_name = str(input("LAST NAME: "))
+            identification = int(input("ID: "))
+            nationality = str(input("NATIONALITY: "))
+            telephone = int(input("TELEPHONE: "))
+            # email = input("EMAIL: ")
+            email = email_verification()
 
-def seat_assigment():
+            with open("user_data.txt", "a") as file:
+                file.write(f"Gender: {gender}\n")
+                file.write(f"First name: {first_name}\n")
+                file.write(f"Last name: {last_name}\n")
+                file.write(f"ID: {identification}\n")
+                file.write(f"Nationality: {nationality}\n")
+                file.write(f"Telephone: {telephone}\n")
+                file.write(f"Email: {email}\n")
+
+            with open("user_emails.txt", "a") as e_file:
+                e_file.write(email)
+                e_file.write("\n")
+
+            break
+        except ValueError:
+            print("The data you have entered is not correct")
+
+def email_verification():
+    while True:
+            try:
+                email = input("EMAIL: ")
+
+                if "@" in email and "." in email:
+                    print("Email verified")
+                    return email
+            except:
+                raise ValueError("Email not accepted, please enter a valid email.")
+
+def user_existence(email):
+    with open("user_emails.txt", "r") as e_file: 
+        emails = e_file.readlines()
+        emails = [i.strip() for i in emails]
+        if email in emails:
+            return True
+        else:
+            return False
+
+def login():
+    email = input("Enter your email: ")
+
+    if user_existence(email) is True:      
+        print("SUCCESSFUL LOGIN") ### aca se supone que ya tiene una cuenta creada entonces debe direccionarlo
+                                  ### a comprar los vuelos pero me da weba buscar cual era esa funcion
+    else:
+        print("Youre not registered. Please create an account")
+        read_user()
+
+def seat_assigment_alum():
     alum = ['A9', 'A10', 'A11', 'A12',
             'B9', 'B10', 'B11', 'B12',
             'C9', 'C10', 'C11', 'C12',
@@ -13,11 +80,9 @@ def seat_assigment():
             'E9', 'E10', 'E11', 'E12',
             'F9', 'F10', 'F11', 'F12']
 
-    
-
-    alum = random.choice(alum)
+    alumi = random.choice(alum)
     seats_alum = seats_alum.remove(alum)
-    return alum
+    return alumi
 
 def seat_assigment_diam():
     diam = ['A5', 'A6', 'A7', 'A8',
@@ -27,9 +92,9 @@ def seat_assigment_diam():
             'E5', 'E6', 'E7', 'E8',
             'F5', 'F6', 'F7', 'F8',]
     
-    diam = random.choice(diam)
+    diamo = random.choice(diam)
     seats_diam = seats_diam.remove(diam)
-    return diam
+    return diamo
 
 def seat_assigment_premium():
     premium = ['A1', 'A2', 'A3', 'A4',
@@ -38,13 +103,22 @@ def seat_assigment_premium():
                'D1', 'D2', 'D3', 'D4',
                'E1', 'E2', 'E3', 'E4',
                'F1', 'F2', 'F3', 'F4',]
+    print("AVAILABLE SEATS")
+    print(premium)
 
-    premium = random.choice(premium)
-    seats_premium = seats_premium.remove(premium)
-    return premium
+    choosen_seat = input("Please, select your seat: ")
 
-def avai_flights():
-    flights = ['Z328', '2024-06-5', '08:13:00', '10:35:00', 244463, 538669, 1666594, 'Santa Marta', 'Bogota'],
+    aux = choosen_seat #auxiliar para imprimir el asiento del usuario NO ESTÁ TERMINADO, NO ME HAGAN BULLYING#
+
+    if choosen_seat in premium:
+        premium.remove(choosen_seat)
+    else:
+        print("The seat you entered is not available")
+    print("AVAILABLE SEATS")
+    print(premium)
+
+def tabladevuelos():
+    flights = [['Z328', '2024-06-5', '08:13:00', '10:35:00', 244463, 538669, 1666594, 'Santa Marta', 'Bogota'],
 ['X633', '2024-06-6', '02:55:00', '05:58:00', 483669, 640186, 4023518, 'Santa Marta', 'Cartagena'],
 ['G611', '2024-06-12', '16:50:00', '17:07:00', 295876, 915371, 2684321, 'Medellin', 'Santa Marta'],
 ['N891', '2024-06-13', '07:15:00', '11:48:00', 438164, 692289, 2927741, 'Cali', 'Bogota'],
@@ -143,16 +217,54 @@ def avai_flights():
 ['E971', '2024-06-12', '22:07:00', '23:12:00', 362030, 972110, 1721417, 'Santa Marta', 'Cartagena'],       
 ['U728', '2024-06-12', '15:55:00', '18:43:00', 352021, 909057, 3924712, 'Santa Marta', 'Medellin'],
 ['U522', '2024-06-13', '12:46:00', '14:54:00', 169490, 503891, 2723741, 'Bogota', 'Cartagena'],
-['V560', '2024-06-26', '08:41:00', '11:20:00', 118816, 675485, 2104917, 'Santa Marta', 'Cali'],
-
-acum = 0   
-
-
-def price():
-    pass
+['V560', '2024-06-26', '08:41:00', '11:20:00', 118816, 675485, 2104917, 'Santa Marta', 'Cali']]
     
-if __name__=='__main__':
+    return flights
+
+def select_flight():
     ori = str(input("Flight origin: "))
     dest = str(input("Flight destination: "))
-    dep_Date = int(input("Departure date: "))
-    people = int(input("Number of people: "))
+    date = int(input("Date of the flight (YYYY-MM-DD): "))
+    service = str(input("Select a service: Aluminum, Diamond, Premium"))
+
+    available_flights = [fly for fly in tabladevuelos() if fly[7] == ori and fly[8] == dest and fly[1] == date]
+
+    if len(available_flights) == 0:
+        print("We're sorry, we don't have available flights")
+    else:
+        for fly in available_flights:
+            print(f"""FLIGHT: {fly[0]}
+                      DEPARTURE TIME: {fly[2]}
+                      ARRIVAL TIME: {fly[3]}""")
+            
+    price(fly, service)
+            
+def price(fly, service):
+    while True:
+        try:
+            if service.lower() == "aluminum":
+                option_one = str(input("Hand luggage (yes/no): "))
+                option_two = str(input("baggage (yes/no): "))
+                if option_one == "yes" and option_two == "yes":
+                    return fly[4] + 370700
+                elif option_one == "yes":
+                    return fly[4] + 195100
+                elif option_two == "yes":
+                    return fly[4] + 175600
+                elif option_one == "no" and option_two == "no":
+                    return fly[4]
+                else:
+                    raise ValueError    
+            elif service.lower() == "diamond":
+                return fly[5]
+            elif service.lower() == "premium":
+                return fly[6]
+            else:
+                raise ValueError("The service entered is not valid") 
+        except:
+            raise ValueError("Invalid input. Please enter 'yes' or 'no'")
+    
+if __name__=='__main__':
+    # dep_Date = int(input("Departure date: "))
+    # people = int(input("Number of people: "))
+    pass
