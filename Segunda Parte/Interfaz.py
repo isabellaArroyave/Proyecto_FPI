@@ -23,25 +23,6 @@ def travel_windows():
     marco_derecho_for_destination.pack(side = "right", padx = 50)
 
 
-
-    # etiqueta_origen = tk.Label(marco_izquierdo_for_destination, text = "Origen", font = ("Times New Roman", 18), fg = "white", bg="#0B666A")
-    # etiqueta_origen.pack(pady = 10)
-
-    # texto_origen_entry = tk.Entry(marco_izquierdo_for_destination, font = ("Times New Roman", 14))
-    # texto_origen_entry.pack(pady = 10)
-
-    # etiqueta_destino = tk.Label(marco_derecho_for_destination, text = "Destino", font = ("Times New Roman", 18), fg = "white", bg="#0B666A")
-    # etiqueta_destino.pack(pady = 10)
-
-    # texto_destino_entry = tk.Entry(marco_derecho_for_destination, font = ("Times New Roman", 14))
-    # texto_destino_entry.pack(pady = 10)
-
-    # etiqueta_fecha = tk.Label(marco_derecho_for_destination, text = "Fecha", font = ("Times New Roman", 18), fg = "white", bg="#0B666A")
-    # etiqueta_fecha.pack(pady = 10)
-
-    # texto_fecha_entry = tk.Entry(marco_derecho_for_destination, font = ("Times New Roman", 14))
-    # texto_fecha_entry.pack(pady = 10)
-
     def tengo_cuenta():
         windows_for_destination.destroy()
         inicio_sesion()
