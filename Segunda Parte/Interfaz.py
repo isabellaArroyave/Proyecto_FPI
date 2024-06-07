@@ -503,7 +503,7 @@ def crear_asientos_prem(frame_prem, row_prem, column_prem):
             etiqueta_prem.grid(row=r, column=c, padx=5, pady=5)
 
 def cambiar_color(boton):
-    boton.config(bg="purple")
+    boton.config(bg="orange")
 
 def premium ():
     windows_prem = tk.Tk()
