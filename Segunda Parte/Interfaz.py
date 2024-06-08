@@ -6,7 +6,7 @@ def travel_windows():
     windows_for_destination = tk.Tk()
     windows_for_destination.title("Usuario")
     windows_for_destination.geometry("800x600")
-    windows_for_destination.resizable(1,0)
+    windows_for_destination.resizable(0,0)
     windows_for_destination.configure(bg="#FFF9ED")
 
     frame = tk.Frame(windows_for_destination, bg= "#F5A3C8")
@@ -61,6 +61,25 @@ def travel_windows():
     windows_for_destination.mainloop()
 
 #=========================================Ventana para registrarse=======================================================================
+def read_user():
+    while True:
+        try:
+            gender = str(input("GENDER: "))
+            first_name = str(input("FIRST NAME: "))
+            last_name = str(input("LAST NAME: "))
+            identification = int(input("ID: "))
+            nationality = str(input("NATIONALITY: "))
+            telephone = int(input("TELEPHONE: "))
+            # email = input("EMAIL: ")
+            email = email_verification() ###arreglar parametro, buscar forma de unir al entry
+
+            with open("user_emails.txt", "a") as e_file:
+                e_file.write(email)
+                e_file.write("\n")
+
+            break
+        except ValueError:
+            print("The data you have entered is not correct")
 
 def main_windows():
     windows = tk.Tk()
@@ -132,7 +151,24 @@ def main_windows():
     check_in_buttom.pack(side = "bottom", anchor = "s", pady= 50)
 
 #============================Ventanas de inicio sesion=====================================================================================
+def user_existence(correo_entry):
+    with open("user_emails.txt", "r") as e_file: 
+        emails = e_file.readlines()
+        emails = [i.strip() for i in emails]
+        if correo_entry in emails:
+            pass # tiene que llevarme a la ventana de vuelos disponibles
+        else:
+            read_user()
 
+def email_verification(correo_entry): ##arreglar parametro
+    while True:
+            try:
+                if "@" in correo_entry and "." in correo_entry:
+                    print("Email verified")
+                    return correo_entry
+            except:
+                raise ValueError("Email not accepted, please enter a valid email.")
+            
 def inicio_sesion():
     sesion = tk.Tk()
     sesion.title("Iniciar sesión")
@@ -151,11 +187,15 @@ def inicio_sesion():
 
     correo_entry = tk.Entry(sesion, font = ("Times New Roman", 14), bg="#58FF9F")
     correo_entry.place(relx= 0.5, rely= 0.45, anchor= "n")
-
+    
+    sesion_buttom = tk.Button(sesion, text = "Iniciar", font = ("Times New Roman", 14), command = lambda: user_existence(correo_entry.get()), bg = "light green")
+    sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
+    
     sesion_buttom = tk.Button(sesion, text = "Iniciar", font = ("Times New Roman", 14), command = ingreso_dato, bg = "light green")
     sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
 
     sesion.mainloop()
+
 
 
 #============================Ventanas de los 100 botones=====================================================================================

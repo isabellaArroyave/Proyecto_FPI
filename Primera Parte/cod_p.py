@@ -1,4 +1,34 @@
 import random
+
+flight_purchases = {}
+
+def flihgt_book(flights, choice, flight_purchases):
+    ### aqui pondria el vuelo elegido por el usuario, pa hacer una plantilla de esta mierda
+    ### vamos a suponer que tengo una variable "flight_selected" que seria el vuelo que el usuario selecciono
+    ### tambien tengo que hacer lo de que escoja el numero de vuelos que quiere comprar
+    ### ahi me disculpan el desorden chachos, mucho texto.
+    ### variable para el numero de vuelos que quiere comprar = choice SOLO ES MIENTRAS BUSCO BIEN COMO PONERLO
+    ### flights = lista de vuelos 
+    
+    flights = tabladevuelos()
+
+    ### crear choice para que el usuario ingrese cuantos vuelos quiere comprar
+
+    if choice < 1 or choice > len(flights):
+        print("Invalid")
+        return
+    flight_selected = flights[choice - 1][0]  # Obtener el código del vuelo seleccionado
+    if flight_selected in flight_purchases and flight_purchases[flight_selected] >= 72:
+        print("We're sorry, the flight is fully booked.")
+        ## Llama a la función de vuelos disponibles otra vez para ver si quiere escoger otro
+        return
+    else:
+        purchases_number = int(input("Enter the number of seats you want to buy: "))
+        if flight_selected in flight_purchases:
+            flight_purchases[flight_selected] += purchases_number
+        else:
+            flight_purchases[flight_selected] = purchases_number
+
 def card_verification():
     while True:
         try:
@@ -35,8 +65,7 @@ def read_user():
                 file.write(f"Email: {email}\n")
 
             with open("user_emails.txt", "a") as e_file:
-                e_file.write(email)
-                e_file.write("\n")
+                e_file.write(email + "\n")
 
             break
         except ValueError:
@@ -263,8 +292,21 @@ def price(fly, service):
                 raise ValueError("The service entered is not valid") 
         except:
             raise ValueError("Invalid input. Please enter 'yes' or 'no'")
+        
+
+def user_name():
+    with open("user_data.txt", "r") as file:
+        lines = file.readlines()
+        for i in lines:
+            if i.startswith("First name:"):
+                return i.split(": ")[1].strip()
+
+def generate_code(first_name):
+    name = first_name.upper()    
+    code = name[0] 
+    for i in range(6):
+        code += random.choice("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    return code
     
 if __name__=='__main__':
-    # dep_Date = int(input("Departure date: "))
-    # people = int(input("Number of people: "))
     pass
