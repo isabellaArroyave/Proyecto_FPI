@@ -564,6 +564,13 @@ def medio_pago():
     vencimiento_entry = tk.Entry(pago, font=("Arial", 13), bg="lightgreen")
     vencimiento_entry.place(relx=0.3, rely=0.52, anchor="n")
 
+    total_pagar = tk.Label(pago, text="Total a pagar: (ejemplo) $2.225.000", font=("Arial", 13))
+    total_pagar.place(relx=0.35, rely=0.6)
+
+    pay_button = tk.Button(pago, text="Pay", font=("Arial", 13), bg="lightblue")
+    pay_button.place(relx=0.5, rely=0.65, anchor="n")
+
+    
 
 
     pago.mainloop()
