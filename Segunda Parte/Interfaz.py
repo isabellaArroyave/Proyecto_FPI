@@ -498,7 +498,12 @@ def premium ():
     frame_prem.place(relx= 0.8, rely= 0.1, anchor= "n")
     windows_prem.configure(bg="#FFF9ED")
 
-    prem_buttom = tk.Button(windows_prem, text="Premium", font = ("Times New Roman", 14) , bg = "lightcoral")
+    def pago_():
+        windows_prem.destroy()
+        medio_pago()
+        medio_pago.deiconify()
+
+    prem_buttom = tk.Button(windows_prem, text="Premium", font = ("Times New Roman", 14), command=pago_ , bg = "lightcoral")
     prem_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     crear_asientos_prem(frame_prem, row_prem, column_prem)
@@ -506,6 +511,20 @@ def premium ():
 
 
     windows_prem.mainloop()    
+
+def medio_pago():
+    pago = tk.Tk()
+    pago.title("Medios de pago")
+    pago.geometry("800x600")
+
+    pago_label = tk.Label(pago, text="Nombre del titular", font=("Arial", 13))
+    pago_label.place(relx=0.5, rely=0.3)
+
+    pago_entry = tk.Entry(pago, font=("Arial", 13), bg="lightgreen")
+    pago_entry.place(relx=0.5, rely=0.4, anchor="n")
+
+
+    pago.mainloop()
 
 
 if __name__ == '__main__':
