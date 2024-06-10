@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+
 import customtkinter as ctk
 
 #=========================================Ventana para registrarse=======================================================================
@@ -270,166 +272,43 @@ def tabladevuelos():
 ['V560', '2024-06-26', '08:41:00', '11:20:00', 118816, 675485, 2104917, 'Santa Marta', 'Cali']]
     
     return flights
-# opciones = [
-#     ['Z328', '2024-06-5', '08:13:00', '10:35:00',  'Santa Marta', 'Bogota'],
-#     ['X633', '2024-06-6', '02:55:00', '05:58:00',  'Santa Marta', 'Cartagena'],
-#     ['G611', '2024-06-12', '16:50:00', '17:07:00',  'Medellin', 'Santa Marta'],
-#     ['J786', '2024-06-26', '15:44:00', '16:20:00',  'Cali', 'Bogota'],
-#     [ 'I506', '2024-06-26', '12:13:00', '13:48:00',  'Medellin', 'Cartagena'],
-#     ['W151', '2024-06-27', '01:46:00', '03:28:00',  'Santa Marta', 'Bogota'],
-#     ['I657', '2024-06-5', '23:46:00', '2:48:00', 'Bogota', 'Medellin'],
-#     ['A722', '2024-06-6', '12:32:00', '14:25:00', 'Medellin', 'Santa Marta'],
-#     ['G542', '2024-06-27', '10:15:00', '12:58:00',  'Cali', 'Bogota'],
-#     ['R419', '2024-06-13', '18:45:00', '21:11:00',  'Cali', 'Bogota'],
-#     ['K387', '2024-06-12', '08:52:00', '12:58:00',  'Medellin', 'Cartagena'],
-#     ['I684', '2024-06-6', '18:25:00', '22:33:00',  'Santa Marta', 'Cartagena'],
-#     ['T366', '2024-06-6', '15:59:00', '16:30:00',  'Bogota', 'Medellin'],
-#     ['G973', '2024-06-27', '07:51:00', '09:59:00', 'Cartagena', 'Medellin'],
-#     ['P628', '2024-06-20', '20:47:00', '21:45:00',  'Cali', 'Bogota'],
-#     ['V577', '2024-06-20', '19:47:00', '23:12:00',  'Bogota', 'Medellin'],
-#     ['Y916', '2024-06-5', '19:05:00', '20:07:00',  'Bogota', 'Medellin'],
-#     ['C616', '2024-06-6', '14:43:00', '19:14:00',  'Bogota', 'Medellin'],
-#    ['Z502', '2024-06-27', '02:33:00', '04:46:00', 'Santa Marta', 'Medellin'],
-# ['O706', '2024-06-19', '03:33:00', '08:12:00',  'Cartagena', 'Medellin'],
-# ['A425', '2024-06-12', '05:16:00', '07:38:00',  'Bogota', 'Cartagena'],
-# ['A643', '2024-06-27', '02:41:00', '06:50:00',  'Bogota', 'Santa Marta'],
-# ['C594', '2024-06-6', '20:14:00', '22:16:00',  'Cartagena', 'Cali'],
-# ['X712', '2024-06-5', '04:28:00', '05:47:00',  'Santa Marta', 'Cartagena'],
-# ['X517', '2024-06-26', '13:23:00', '16:23:00', 'Cali', 'Cartagena'],
-# ['M302', '2024-06-20', '15:15:00', '17:10:00',  'Cartagena', 'Cali'],
-# ['X448', '2024-06-12', '14:57:00', '16:48:00',  'Medellin', 'Bogota'],
-# ['K415', '2024-06-6', '01:59:00', '02:58:00',  'Cartagena', 'Cali'],
-# ['N999', '2024-06-20', '00:02:00', '01:28:00',  'Cali', 'Bogota'],
-# ['Q579', '2024-06-19', '10:13:00', '13:46:00', 'Bogota', 'Cali'],
-# ['O632', '2024-06-5', '10:46:00', '11:04:00',  'Cali', 'Medellin'],
-# ['W768', '2024-06-5', '00:14:00', '02:37:00',  'Cartagena', 'Santa Marta'],
-# ['N700', '2024-06-20', '17:02:00', '21:47:00',  'Cali', 'Medellin'],
-# ['A198', '2024-06-13', '10:07:00', '11:34:00',  'Santa Marta', 'Cali'],
-# ['N508', '2024-06-20', '07:49:00', '11:17:00', 'Cali', 'Bogota'],
-# ['S830', '2024-06-26', '06:11:00', '08:05:00', 'Medellin', 'Bogota'],
-# ['B193', '2024-06-12', '11:55:00', '16:16:00', 'Santa Marta', 'Medellin'] ,
-# ['N925', '2024-06-20', '20:09:00', '23:27:00', 'Bogota', 'Cali'],
-# ['O805', '2024-06-19', '08:11:00', '12:14:00', 'Cartagena', 'Cali'],
-# ['B165', '2024-06-20', '00:21:00', '03:01:00', 'Medellin', 'Cali'],
-# ['Q419', '2024-06-6', '18:09:00', '20:04:00', 'Santa Marta', 'Bogota'],
-# ['H905', '2024-06-6', '11:56:00', '13:11:00', 'Cali', 'Santa Marta'],
-# ['R873', '2024-06-6', '00:14:00', '04:15:00', 'Santa Marta', 'Cali'],
-# ['T810', '2024-06-6', '22:03:00', '00:13:00', 'Medellin', 'Santa Marta'],
-# ['R507', '2024-06-20', '03:35:00', '05:14:00', 'Cartagena', 'Bogota'],
-# ['E279', '2024-06-27', '03:32:00', '07:31:00', 'Cali', 'Bogota'],
-# ['T179', '2024-06-5', '21:42:00', '23:56:00',  'Medellin', 'Bogota'],
-# ['E348', '2024-06-6', '14:21:00', '17:45:00', 'Cartagena', 'Cali'],
-# ['V809', '2024-06-5', '15:17:00', '18:30:00', 'Santa Marta', 'Medellin'],
-# ['D483', '2024-06-12', '04:31:00', '09:24:00', 'Cali', 'Cartagena'],
-# ['F592', '2024-06-20', '20:57:00', '23:35:00', 'Medellin', 'Cartagena'],
-# ['B209', '2024-06-6', '07:51:00', '10:33:00',  'Santa Marta', 'Cartagena'] ,
-# ['F812', '2024-06-26', '04:51:00', '08:56:00', 'Cali', 'Cartagena'],
-# ['X552', '2024-06-26', '04:54:00', '07:10:00', 'Cartagena', 'Santa Marta'] ,
-# ['I848', '2024-06-5', '07:45:00', '12:08:00', 'Cartagena', 'Bogota'],
-# ['J755', '2024-06-20', '02:52:00', '07:15:00', 'Cali', 'Medellin'],
-# ['Y216', '2024-06-19', '02:44:00', '05:12:00', 'Cartagena', 'Santa Marta'] ,
-# ['G442', '2024-06-12', '01:09:00', '03:41:00', 'Medellin', 'Cali'],
-# ['V932', '2024-06-12', '16:57:00', '18:53:00', 'Santa Marta', 'Medellin']   ,
-# ['Q252', '2024-06-20', '08:20:00', '13:01:00',  'Cartagena', 'Cali'],
-# ['D848', '2024-06-27', '11:08:00', '14:48:00',  'Bogota', 'Santa Marta'],
-# ['S569', '2024-06-5', '14:40:00', '16:24:00',  'Bogota', 'Medellin'],
-# ['I656', '2024-06-13', '20:31:00', '23:13:00',  'Medellin', 'Cali'],
-# ['S129', '2024-06-6', '18:08:00', '19:08:00',  'Medellin', 'Cartagena'],
-# ['N232', '2024-06-5', '16:35:00', '19:08:00', 'Medellin', 'Santa Marta'],
-# ['M191', '2024-06-20', '03:11:00', '07:02:00', 'Cartagena', 'Medellin'],
-# ['H180', '2024-06-20', '00:19:00', '02:53:00', 'Santa Marta', 'Cali'],
-# ['V900', '2024-06-19', '10:39:00', '13:52:00', 'Santa Marta', 'Cali'],
-# ['Q449', '2024-06-27', '18:37:00', '20:56:00', 'Santa Marta', 'Cali'],
-# ['R250', '2024-06-26', '16:28:00', '18:29:00', 'Cali', 'Bogota'],
-# ['T654', '2024-06-26', '12:11:00', '14:20:00', 'Santa Marta', 'Bogota'],
-# ['Y804', '2024-06-12', '14:28:00', '16:34:00', 'Cali', 'Bogota'],
-# ['E971', '2024-06-12', '22:07:00', '23:12:00', 'Santa Marta', 'Cartagena'] ,
-# ['U728', '2024-06-12', '15:55:00', '18:43:00',  'Santa Marta', 'Medellin'],
-# ['U522', '2024-06-13', '12:46:00', '14:54:00',  'Bogota', 'Cartagena'],
-# ['V560', '2024-06-26', '08:41:00', '11:20:00', 'Santa Marta', 'Cali'],
-# ]
 
 
-# contadores = [0] * len(opciones)
+def select_flight():
+    ori = origen_entry.get()
+    dest = destino_entry.get()
 
-# # Configuración de la paginación
-# botones_por_pagina = 10
-# pagina_actual = 0
-# total_paginas = (len(opciones) + botones_por_pagina - 1) // botones_por_pagina
+    available_flights = [fly for fly in tabladevuelos() if fly[8] == dest and fly[7] == ori]
+    
+    # Clear any existing buttons in the frame 'buscar' before adding new ones
+    for widget in buscar.winfo_children():
+        widget.destroy()
 
-# def incrementar_contador(i):
-#     contadores[i] += 1
-#     labels[i].config(text=f"{opciones[i]}: {contadores[i]}")
+    def asientos():
+        buscar.destroy()
+        seats_Airplane()
+        seats_Airplane.deiconify()
+    
+    if available_flights:
+        for i, fly in enumerate(available_flights):
+            flight_text = f"FLIGHT: {fly[0]}, DEPARTURE TIME: {fly[2]}, ARRIVAL TIME: {fly[3]}"
+            vuelos_button = tk.Button(buscar, text=flight_text, font=("Arial", 13), bg="pink", command=asientos)
+            vuelos_button.pack(fill='x', pady=5)  # Adjust placement as needed
+    else:
+        no_flights_label = tk.Label(buscar, text="We're sorry, we don't have available flights", font=("Arial", 13))
+        no_flights_label.pack(fill='x', pady=5)
 
-# def crear_botones(inicio, fin):
-#     for i in range(inicio, fin):
-#         boton = tk.Button(frame, text=f"{opciones[i]}", command=lambda i=i: incrementar_contador(i))
-#         boton.grid(row=i % 18, column=0, pady=5)
-#         botones.append(boton)
-#         labels[i] = tk.Label(frame, text=f"{opciones[i]}: {contadores[i]}")
-#         labels[i].grid(row=i % 18, column=1, padx=10)
+# Add these entries to your root or another frame, and then bind/select_flight to a button or an event
 
-# def cambiar_pagina(direccion):
-#     global pagina_actual
-#     if direccion == "adelante":
-#         pagina_actual += 1
-#     elif direccion == "atras":
-#         pagina_actual -= 1
+    
+    # vuelos = tk.Label(buscar, font=("Arial", 13), bg="darkblue")
+    # vuelos.place(relx= 0.5, rely= 0.5, anchor= "center", height= 400, width= 700)
+    
 
-#     if pagina_actual < 0:
-#         pagina_actual = 0
-#     elif pagina_actual >= total_paginas:
-#         pagina_actual = total_paginas - 1
+    
 
-#     actualizar_botones()
-
-# def actualizar_botones():
-#     for boton in botones:
-#         boton.grid_forget()
-#     inicio = pagina_actual * botones_por_pagina
-#     fin = min((pagina_actual + 1) * botones_por_pagina, len(opciones))
-#     crear_botones(inicio, fin)
-
-#     if pagina_actual == total_paginas - 1:
-#         boton_extra.grid(row=19, column=0, columnspan=2, pady=20)
-#     else:
-#         boton_extra.grid_forget()
-
-# def iniciar_interfaz():
-#     global frame, frame_botones_pagina, root, labels, botones, boton_extra
-#     root = tk.Tk()
-#     root.geometry("1200x900")
-#     root.resizable(0,0)
-#     root.configure(bg="#23BAC4")
-#     root.title("Contadores de Opciones")
-
-#     global labels, botones
-#     labels = {}
-#     botones = []
-
-#     frame = tk.Frame(root,bg="#338DFF")
-#     frame.grid(row=0, column=0)
-
-#     crear_botones(0, min(botones_por_pagina, len(opciones)))
-
-#     frame_botones_pagina = tk.Frame(root, bg = "#23BAC4")
-#     frame_botones_pagina.grid(row=1, column=0, pady=10)
-
-#     btn_atras = tk.Button(frame_botones_pagina, text="Página anterior", command=lambda: cambiar_pagina("atras"), bg="#68FF33")
-#     btn_atras.grid(row=0, column=0, padx=5)
-
-#     btn_adelante = tk.Button(frame_botones_pagina, text="Página siguiente", command=lambda: cambiar_pagina("adelante"), bg="#68FF33")
-#     btn_adelante.grid(row=0, column=1, padx=5)
-
-#     boton_extra = tk.Button(root, text="Done", bg="#FFD700", command=asientos)
-
-#     root.mainloop()
-
-def select_flight(ori, date, dest):
-    available_flights = [fly for fly in tabladevuelos() if fly[7] == ori and fly[8] == dest and fly[1] == date]
-
-    if len(available_flights) == 0:
-        print("We're sorry, we don't have available flights")
+    #if len(available_flights) == 0:
+    #     print("We're sorry, we don't have available flights")
         
     ####ESTO PUEDE SERVIR PARA EL BOLETO
 
@@ -440,6 +319,7 @@ def select_flight(ori, date, dest):
     #                   ARRIVAL TIME: {fly[3]}""")
 
 def buscador():
+    global vuelos, destino_entry, origen_entry, buscar
     buscar = tk.Tk()
     buscar.title("Buscador de vuelos")
     buscar.geometry("800x600")
@@ -447,42 +327,51 @@ def buscador():
     origen_label = tk.Label(buscar, text="Origen", font=("Arial", 13))
     origen_label.place(relx= 0.17, rely= 0.05)
 
-    origen_entry = tk.Entry(buscar, font=("Arial", 13), bg="lightgreen")
+    opciones_origen = ["Santa Marta", "Bogotá", "Cartagena", "Medellin", "Cali"]
+    origen_entry = ttk.Combobox(buscar, values=opciones_origen, state='readonly')
     origen_entry.place(relx= 0.1, rely= 0.1)
-
-    ori = origen_entry.get()
+    origen_entry.set("Escoja el origen")
 
     #
 
     fecha_label = tk.Label(buscar, text="Fecha", font=("Arial", 13))
     fecha_label.place(relx= 0.47, rely= 0.05)
 
-    fecha_entry = tk.Entry(buscar, font=("Arial", 13), bg="lightgreen")
+    opciones_fecha = ["2024-06-5", "2024-06-6", "2024-06-12", "2024-06-13", "2024-06-19", "2024-06-20", "2024-06-26", "2024-06-27"]
+    fecha_entry = ttk.Combobox(buscar, values=opciones_fecha, state='readonly')
     fecha_entry.place(relx= 0.4, rely= 0.1)
-
-    date = fecha_entry.get()
+    fecha_entry.set("Escoja la fecha")
 
     #
 
     destino_label = tk.Label(buscar, text="Destino", font=("Arial", 13))
     destino_label.place(relx= 0.77, rely= 0.05)
 
-    destino_entry = tk.Entry(buscar, font=("Arial", 13), bg="lightgreen")
+    opciones_destino = ["Santa Marta", "Bogotá", "Cartagena", "Medellin", "Cali"]
+    destino_entry = ttk.Combobox(buscar, values=opciones_destino, state='readonly')
     destino_entry.place(relx= 0.7, rely= 0.1)
+    destino_entry.set("Escoja el destino")
 
-    dest = destino_entry.get()
+    def asientos():
+        buscar.destroy()
+        seats_Airplane()
+        seats_Airplane.deiconify()
 
-    select_flight(ori, date, dest)
+    verificar_buttom = tk.Button(buscar, text = "Verificar", font = ("Times New Roman", 14),command=select_flight, bg = "light green")
+    verificar_buttom.pack(side = "bottom", anchor = "s", pady= 50)
+
+    # available_flights = verificar_buttom.get()
+
+    vuelos = tk.Label(buscar, font=("Arial", 13), bg="darkblue")
+    vuelos.place(relx= 0.5, rely= 0.5, anchor= "center", height= 400, width= 700)
+
 
     buscar.mainloop()
 
 
 #================================Ventana de los asientos===========================================================================
 #===================================================================================================================================
-def asientos():
-    root.destroy()
-    seats_Airplane()
-    seats_Airplane.deiconify()
+
 
 
 def crear_asientos(frame1, row, column):
@@ -721,36 +610,3 @@ if __name__ == '__main__':
     inicio_sesion()    
     
 #la ventana del Check-in esta hecha en google keep
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
