@@ -162,6 +162,13 @@ def inicio_sesion():
     sesion_buttom = tk.Button(sesion, text = "Iniciar", font = ("Times New Roman", 14), command = ingreso_dato, bg = "light green")
     sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
 
+    def regresar_seats():
+        windows_prem.destroy()
+        seats_Airplane()
+        seats_Airplane.deiconify()
+
+    
+
     sesion.mainloop()
 
 
@@ -318,6 +325,10 @@ def select_flight():
     #                   DEPARTURE TIME: {fly[2]}
     #                   ARRIVAL TIME: {fly[3]}""")
 
+#================================Ventana del buscador de vuelos==========================================================================
+#===================================================================================================================================
+
+
 def buscador():
     global vuelos, destino_entry, origen_entry, buscar
     buscar = tk.Tk()
@@ -365,6 +376,13 @@ def buscador():
     vuelos = tk.Label(buscar, font=("Arial", 13), bg="darkblue")
     vuelos.place(relx= 0.5, rely= 0.5, anchor= "center", height= 400, width= 700)
 
+    def regresar_sesion():
+        buscar.destroy()
+        inicio_sesion()
+        inicio_sesion.deiconify()
+
+    back_sesion_button = tk.Button(buscar, text="Back", font=("Arial", 13),command=regresar_sesion, bg="lightblue")
+    back_sesion_button.place(relx=0.2, rely=0.65, anchor="n")
 
     buscar.mainloop()
 
@@ -403,7 +421,7 @@ def seats_Airplane():
 
 
     def categoria_alum():
-        # seats.destroy()
+        seats.destroy()
         aluminio()
         aluminio.deiconify()
 
@@ -411,7 +429,7 @@ def seats_Airplane():
     aluminio_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def categoria_diam():
-        # seats.destroy()
+        seats.destroy()
         diamante()
         diamante.deiconify()
 
@@ -419,12 +437,20 @@ def seats_Airplane():
     diamante_buttom.place(relx= 0.55, rely= 0.44, anchor= "n")
 
     def categoria_premium():
-        # seats.destroy()
+        seats.destroy()
         premium()
         premium.deiconify()
 
     premium_buttom = tk.Button(seats, text="Premium", font = ("Times New Roman", 14), command =categoria_premium, bg = "lightcoral")
     premium_buttom.place(relx= 0.55, rely= 0.66, anchor= "n")
+
+    def regresar_buscador():
+        seats.destroy()
+        buscador()
+        buscador.deiconify()
+
+    back_asientos_button = tk.Button(seats, text="Back", font=("Arial", 13),command=regresar_buscador, bg="lightblue")
+    back_asientos_button.place(relx=0.2, rely=0.76, anchor="n")
 
 
     crear_asientos(frame1, row, column)
@@ -469,6 +495,14 @@ def aluminio ():
     pay_aluminio = tk.Button(windows_alum, text="Pay flight", font = ("Times New Roman", 14), command=pago_ , bg = "lightcoral")
     pay_aluminio.place(relx= 0.45, rely= 0.6, anchor= "n")
 
+    def regresar_seats_alum():
+        windows_alum.destroy()
+        seats_Airplane()
+        seats_Airplane.deiconify()
+
+    back_aluminio_button = tk.Button(windows_alum, text="Back", font=("Arial", 13),command=regresar_seats_alum, bg="lightblue")
+    back_aluminio_button.place(relx=0.2, rely=0.65, anchor="n")
+
     crear_asientos_alum(frame_alum, row_alum, column_alum)
 
     windows_alum.mainloop()
@@ -508,6 +542,14 @@ def diamante ():
 
     pay_diamond = tk.Button(windows_diam, text="Pay flight", font = ("Times New Roman", 14), command=pago_ , bg = "lightcoral")
     pay_diamond.place(relx= 0.45, rely= 0.6, anchor= "n")
+
+    def regresar_seats_diam():
+        windows_diam.destroy()
+        seats_Airplane()
+        seats_Airplane.deiconify()
+
+    back_diamond_button = tk.Button(windows_diam, text="Back", font=("Arial", 13),command=regresar_seats_diam, bg="lightblue")
+    back_diamond_button.place(relx=0.2, rely=0.65, anchor="n")
 
     crear_asientos_diam(frame_diam, row_diam, column_diam)
 
@@ -552,6 +594,14 @@ def premium ():
 
     pay_premium = tk.Button(windows_prem, text="Pay flight", font = ("Times New Roman", 14), command=pago_ , bg = "lightcoral")
     pay_premium.place(relx= 0.55, rely= 0.6, anchor= "n")
+
+    def regresar_seats():
+        windows_prem.destroy()
+        seats_Airplane()
+        seats_Airplane.deiconify()
+
+    back_premium_button = tk.Button(windows_prem, text="Back", font=("Arial", 13),command=regresar_seats, bg="lightblue")
+    back_premium_button.place(relx=0.2, rely=0.65, anchor="n")
 
     crear_asientos_prem(frame_prem, row_prem, column_prem)
 
@@ -598,7 +648,13 @@ def medio_pago():
     pay_button = tk.Button(pago, text="Pay", font=("Arial", 13), bg="lightblue")
     pay_button.place(relx=0.5, rely=0.65, anchor="n")
 
-    
+    def regresar_premium():
+        pago.destroy()
+        premium()
+        premium.deiconify()
+
+    back_pay_button = tk.Button(pago, text="Back", font=("Arial", 13),command=regresar_premium, bg="lightblue")
+    back_pay_button.place(relx=0.2, rely=0.65, anchor="n")
 
 
     pago.mainloop()
