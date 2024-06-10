@@ -1,67 +1,39 @@
 import tkinter as tk
 import customtkinter as ctk
 
-#==========================Ventana seleccion de usuario==============================================================
-
-def travel_windows():
-    windows_for_destination = tk.Tk()
-    windows_for_destination.title("Usuario")
-    windows_for_destination.geometry("800x600")
-    windows_for_destination.resizable(0,0)
-    windows_for_destination.configure(bg="#FFF9ED")
-
-    frame = tk.Frame(windows_for_destination, bg= "#F5A3C8")
-    frame.pack(expand= True)
-    etiqueta_destination = tk.Label(frame, text = "¿Ya tienes una cuenta?",font = ("Times New Roman", 18 ), fg = "black", bg="#F5A3C8")
-
-    etiqueta_destination.grid(row = 1, column= 0, padx= 100, pady= 50)
-
-    marco_izquierdo_for_destination = tk.Frame(windows_for_destination, bg="#FFF9ED")
-    marco_izquierdo_for_destination.pack(side = "left", padx = 50)
-
-    marco_derecho_for_destination = tk.Frame(windows_for_destination, bg="#FFF9ED")
-    marco_derecho_for_destination.pack(side = "right", padx = 50)
-
-
-    def tengo_cuenta():
-        windows_for_destination.destroy()
-        inicio_sesion()
-        inicio_sesion.deiconify()
-
-    def registro():
-        windows_for_destination.destroy()
-        main_windows()
-        main_windows.deiconify()
-
-    
-    registrarse_buttom = tk.Button(marco_izquierdo_for_destination, text = "Registrarme", font = ("Times New Roman",14),command=registro, bg = "light green")
-    registrarse_buttom.pack(side = "bottom", anchor = "s", pady = 50)
-
-    cuenta_buttom = tk.Button(marco_derecho_for_destination, text = "Ya tengo cuenta", font = ("Times New Roman",14),command=tengo_cuenta, bg = "light green")
-    cuenta_buttom.pack(side = "bottom", anchor = "s", pady = 50)
-
-    windows_for_destination.mainloop()
-
 #=========================================Ventana para registrarse=======================================================================
-def read_user():
-    while True:
-        try:
-            gender = str(input("GENDER: "))
-            first_name = str(input("FIRST NAME: "))
-            last_name = str(input("LAST NAME: "))
-            identification = int(input("ID: "))
-            nationality = str(input("NATIONALITY: "))
-            telephone = int(input("TELEPHONE: "))
-            # email = input("EMAIL: ")
-            email = email_verification() ###arreglar parametro, buscar forma de unir al entry
+def read_user(gender, first_name, last_name, identification, nationality, telephone, email):
 
-            with open("user_emails.txt", "a") as e_file:
-                e_file.write(email)
-                e_file.write("\n")
+    try:
+        if not gender:
+            raise ValueError("Gender cannot be blank")
+        if not first_name:
+            raise ValueError("First name cannot be blank")
+        if not last_name:
+            raise ValueError("Last name cannot be blank")
+        if not identification:
+            raise ValueError("Identification cannot be blank")
+        if not nationality:
+            raise ValueError("Nationality cannot be blank")
+        if not telephone:
+            raise ValueError("Telephone cannot be blank")
+        email = email_verification(email)
 
-            break
-        except ValueError:
-            print("The data you have entered is not correct")
+        with open("user_data.txt", "a") as file:
+            file.write(f"Gender: {gender}\n")
+            file.write(f"First name: {first_name}\n")
+            file.write(f"Last name: {last_name}\n")
+            file.write(f"ID: {identification}\n")
+            file.write(f"Nationality: {nationality}\n")
+            file.write(f"Telephone: {telephone}\n")
+            file.write(f"Email: {email}\n")
+
+        with open("user_emails.txt", "a") as e_file:
+            e_file.write(email + "\n")
+
+            # break
+    except ValueError:
+        print("The data you have entered is not correct")
 
 def main_windows():
     windows = tk.Tk()
@@ -84,6 +56,7 @@ def main_windows():
     etiqueta_nombre = tk.Label(marco_izquierda, text="Primer Nombre", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_nombre.pack(pady=10)
 
+
     texto_nombre = tk.Entry(marco_izquierda,font=("Arial", 14))
     texto_nombre.pack(pady=10)
 
@@ -96,33 +69,44 @@ def main_windows():
     etiqueta_correo = tk.Label(marco_izquierda, text="Correo Electronico", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_correo.pack(pady=10)
 
+
     texto_correo = tk.Entry(marco_izquierda,font=("Arial", 14))
     texto_correo.pack(pady=10)
 
-
     etiqueta_id = tk.Label(marco_derecha, text = "Identificacion", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_id.pack(pady=10)
+
     
     texto_id = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_id.pack(pady=10)
 
     etiqueta_telefono = tk.Label(marco_derecha, text = "Telefono", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_telefono.pack(pady=10)
-    
+
     texto_telefono = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_telefono.pack(pady=10)
 
     etiqueta_genero = tk.Label(marco_derecha, text = "Genero", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_genero.pack(pady=10)
-    
-    texto_apellido = tk.Entry(marco_derecha, font=("Arial", 14))
-    texto_apellido.pack(pady=10)
+
+    texto_genero = tk.Entry(marco_derecha, font=("Arial", 14))
+    texto_genero.pack(pady=10)
 
     etiqueta_nacionalidad = tk.Label(marco_derecha, text = "Nacionalidad", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_nacionalidad.pack(pady=10)
     
     texto_nacionalidad = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_nacionalidad.pack(pady=10)
+
+    gender = texto_genero.get()
+    first_name = texto_nombre.get()
+    last_name = texto_apellido.get()
+    identification = texto_id.get()
+    nationality = texto_nacionalidad.get()
+    telephone = texto_telefono.get()
+    email = texto_correo.get()
+
+    read_user(gender, first_name, last_name, identification, nationality, telephone, email)
 
     def windows_check_in():
         windows.destroy()
@@ -134,11 +118,11 @@ def main_windows():
 
 #============================Ventanas de inicio sesion=====================================================================================
 def user_existence(correo_entry):
-    with open("user_emails.txt", "r") as e_file: 
+    with open("user_emails.txt", "w") as e_file: 
         emails = e_file.readlines()
         emails = [i.strip() for i in emails]
         if correo_entry in emails:
-            pass # tiene que llevarme a la ventana de vuelos disponibles
+            pass # tiene que llevarme a la ventana del buscador
         else:
             read_user()
 
@@ -158,8 +142,8 @@ def inicio_sesion():
 
     def ingreso_dato():
         sesion.destroy()
-        iniciar_interfaz()
-        iniciar_interfaz.deiconify()
+        buscador()
+        buscador.deiconify()
 
     # frame1 = tk.Frame(seats, bg="#FFF9ED")
     # frame1.place(relx= 0.8, rely= 0.1, anchor= "n")
@@ -183,160 +167,315 @@ def inicio_sesion():
 #============================Ventanas de los 100 botones=====================================================================================
 #============================================================================================================================================
 
-opciones = [
-    ['Z328', '2024-06-5', '08:13:00', '10:35:00',  'Santa Marta', 'Bogota'],
-    ['X633', '2024-06-6', '02:55:00', '05:58:00',  'Santa Marta', 'Cartagena'],
-    ['G611', '2024-06-12', '16:50:00', '17:07:00',  'Medellin', 'Santa Marta'],
-    ['J786', '2024-06-26', '15:44:00', '16:20:00',  'Cali', 'Bogota'],
-    [ 'I506', '2024-06-26', '12:13:00', '13:48:00',  'Medellin', 'Cartagena'],
-    ['W151', '2024-06-27', '01:46:00', '03:28:00',  'Santa Marta', 'Bogota'],
-    ['I657', '2024-06-5', '23:46:00', '2:48:00', 'Bogota', 'Medellin'],
-    ['A722', '2024-06-6', '12:32:00', '14:25:00', 'Medellin', 'Santa Marta'],
-    ['G542', '2024-06-27', '10:15:00', '12:58:00',  'Cali', 'Bogota'],
-    ['R419', '2024-06-13', '18:45:00', '21:11:00',  'Cali', 'Bogota'],
-    ['K387', '2024-06-12', '08:52:00', '12:58:00',  'Medellin', 'Cartagena'],
-    ['I684', '2024-06-6', '18:25:00', '22:33:00',  'Santa Marta', 'Cartagena'],
-    ['T366', '2024-06-6', '15:59:00', '16:30:00',  'Bogota', 'Medellin'],
-    ['G973', '2024-06-27', '07:51:00', '09:59:00', 'Cartagena', 'Medellin'],
-    ['P628', '2024-06-20', '20:47:00', '21:45:00',  'Cali', 'Bogota'],
-    ['V577', '2024-06-20', '19:47:00', '23:12:00',  'Bogota', 'Medellin'],
-    ['Y916', '2024-06-5', '19:05:00', '20:07:00',  'Bogota', 'Medellin'],
-    ['C616', '2024-06-6', '14:43:00', '19:14:00',  'Bogota', 'Medellin'],
-   ['Z502', '2024-06-27', '02:33:00', '04:46:00', 'Santa Marta', 'Medellin'],
-['O706', '2024-06-19', '03:33:00', '08:12:00',  'Cartagena', 'Medellin'],
-['A425', '2024-06-12', '05:16:00', '07:38:00',  'Bogota', 'Cartagena'],
-['A643', '2024-06-27', '02:41:00', '06:50:00',  'Bogota', 'Santa Marta'],
-['C594', '2024-06-6', '20:14:00', '22:16:00',  'Cartagena', 'Cali'],
-['X712', '2024-06-5', '04:28:00', '05:47:00',  'Santa Marta', 'Cartagena'],
-['X517', '2024-06-26', '13:23:00', '16:23:00', 'Cali', 'Cartagena'],
-['M302', '2024-06-20', '15:15:00', '17:10:00',  'Cartagena', 'Cali'],
-['X448', '2024-06-12', '14:57:00', '16:48:00',  'Medellin', 'Bogota'],
-['K415', '2024-06-6', '01:59:00', '02:58:00',  'Cartagena', 'Cali'],
-['N999', '2024-06-20', '00:02:00', '01:28:00',  'Cali', 'Bogota'],
-['Q579', '2024-06-19', '10:13:00', '13:46:00', 'Bogota', 'Cali'],
-['O632', '2024-06-5', '10:46:00', '11:04:00',  'Cali', 'Medellin'],
-['W768', '2024-06-5', '00:14:00', '02:37:00',  'Cartagena', 'Santa Marta'],
-['N700', '2024-06-20', '17:02:00', '21:47:00',  'Cali', 'Medellin'],
-['A198', '2024-06-13', '10:07:00', '11:34:00',  'Santa Marta', 'Cali'],
-['N508', '2024-06-20', '07:49:00', '11:17:00', 'Cali', 'Bogota'],
-['S830', '2024-06-26', '06:11:00', '08:05:00', 'Medellin', 'Bogota'],
-['B193', '2024-06-12', '11:55:00', '16:16:00', 'Santa Marta', 'Medellin'] ,
-['N925', '2024-06-20', '20:09:00', '23:27:00', 'Bogota', 'Cali'],
-['O805', '2024-06-19', '08:11:00', '12:14:00', 'Cartagena', 'Cali'],
-['B165', '2024-06-20', '00:21:00', '03:01:00', 'Medellin', 'Cali'],
-['Q419', '2024-06-6', '18:09:00', '20:04:00', 'Santa Marta', 'Bogota'],
-['H905', '2024-06-6', '11:56:00', '13:11:00', 'Cali', 'Santa Marta'],
-['R873', '2024-06-6', '00:14:00', '04:15:00', 'Santa Marta', 'Cali'],
-['T810', '2024-06-6', '22:03:00', '00:13:00', 'Medellin', 'Santa Marta'],
-['R507', '2024-06-20', '03:35:00', '05:14:00', 'Cartagena', 'Bogota'],
-['E279', '2024-06-27', '03:32:00', '07:31:00', 'Cali', 'Bogota'],
-['T179', '2024-06-5', '21:42:00', '23:56:00',  'Medellin', 'Bogota'],
-['E348', '2024-06-6', '14:21:00', '17:45:00', 'Cartagena', 'Cali'],
-['V809', '2024-06-5', '15:17:00', '18:30:00', 'Santa Marta', 'Medellin'],
-['D483', '2024-06-12', '04:31:00', '09:24:00', 'Cali', 'Cartagena'],
-['F592', '2024-06-20', '20:57:00', '23:35:00', 'Medellin', 'Cartagena'],
-['B209', '2024-06-6', '07:51:00', '10:33:00',  'Santa Marta', 'Cartagena'] ,
-['F812', '2024-06-26', '04:51:00', '08:56:00', 'Cali', 'Cartagena'],
-['X552', '2024-06-26', '04:54:00', '07:10:00', 'Cartagena', 'Santa Marta'] ,
-['I848', '2024-06-5', '07:45:00', '12:08:00', 'Cartagena', 'Bogota'],
-['J755', '2024-06-20', '02:52:00', '07:15:00', 'Cali', 'Medellin'],
-['Y216', '2024-06-19', '02:44:00', '05:12:00', 'Cartagena', 'Santa Marta'] ,
-['G442', '2024-06-12', '01:09:00', '03:41:00', 'Medellin', 'Cali'],
-['V932', '2024-06-12', '16:57:00', '18:53:00', 'Santa Marta', 'Medellin']   ,
-['Q252', '2024-06-20', '08:20:00', '13:01:00',  'Cartagena', 'Cali'],
-['D848', '2024-06-27', '11:08:00', '14:48:00',  'Bogota', 'Santa Marta'],
-['S569', '2024-06-5', '14:40:00', '16:24:00',  'Bogota', 'Medellin'],
-['I656', '2024-06-13', '20:31:00', '23:13:00',  'Medellin', 'Cali'],
-['S129', '2024-06-6', '18:08:00', '19:08:00',  'Medellin', 'Cartagena'],
-['N232', '2024-06-5', '16:35:00', '19:08:00', 'Medellin', 'Santa Marta'],
-['M191', '2024-06-20', '03:11:00', '07:02:00', 'Cartagena', 'Medellin'],
-['H180', '2024-06-20', '00:19:00', '02:53:00', 'Santa Marta', 'Cali'],
-['V900', '2024-06-19', '10:39:00', '13:52:00', 'Santa Marta', 'Cali'],
-['Q449', '2024-06-27', '18:37:00', '20:56:00', 'Santa Marta', 'Cali'],
-['R250', '2024-06-26', '16:28:00', '18:29:00', 'Cali', 'Bogota'],
-['T654', '2024-06-26', '12:11:00', '14:20:00', 'Santa Marta', 'Bogota'],
-['Y804', '2024-06-12', '14:28:00', '16:34:00', 'Cali', 'Bogota'],
-['E971', '2024-06-12', '22:07:00', '23:12:00', 'Santa Marta', 'Cartagena'] ,
-['U728', '2024-06-12', '15:55:00', '18:43:00',  'Santa Marta', 'Medellin'],
-['U522', '2024-06-13', '12:46:00', '14:54:00',  'Bogota', 'Cartagena'],
-['V560', '2024-06-26', '08:41:00', '11:20:00', 'Santa Marta', 'Cali'],
-]
+def tabladevuelos():
+    flights = [['Z328', '2024-06-5', '08:13:00', '10:35:00', 244463, 538669, 1666594, 'Santa Marta', 'Bogota'],
+['X633', '2024-06-6', '02:55:00', '05:58:00', 483669, 640186, 4023518, 'Santa Marta', 'Cartagena'],
+['G611', '2024-06-12', '16:50:00', '17:07:00', 295876, 915371, 2684321, 'Medellin', 'Santa Marta'],
+['N891', '2024-06-13', '07:15:00', '11:48:00', 438164, 692289, 2927741, 'Cali', 'Bogota'],
+['E350', '2024-06-26', '15:52:00', '17:10:00', 279458, 506496, 1066916, 'Cartagena', 'Bogota'],
+['J773', '2024-06-6', '10:21:00', '11:03:00', 293612, 972660, 4265332, 'Bogota', 'Santa Marta'],
+['B552', '2024-06-13', '13:28:00', '15:29:00', 390970, 781301, 2636179, 'Cali', 'Bogota'],
+['I352', '2024-06-19', '18:33:00', '20:33:00', 112548, 607120, 3138340, 'Cartagena', 'Medellin'],
+['Y874', '2024-06-5', '15:17:00', '16:50:00', 108548, 889209, 4215978, 'Santa Marta', 'Cartagena'],
+['A823', '2024-06-19', '02:55:00', '06:03:00', 286051, 887727, 1794728, 'Medellin', 'Bogota'],
+['J837', '2024-06-5', '17:01:00', '18:02:00', 182306, 601733, 3060789, 'Cartagena', 'Bogota'],
+['Z343', '2024-06-19', '13:47:00', '17:42:00', 248460, 849734, 1382792, 'Cali', 'Medellin'],
+['E747', '2024-06-19', '06:53:00', '09:52:00', 426098, 767319, 4081864, 'Medellin', 'Bogota'],
+['D141', '2024-06-27', '17:29:00', '20:54:00', 330781, 531990, 2817297, 'Cartagena', 'Bogota'],
+['E387', '2024-06-26', '03:32:00', '07:00:00', 473622, 609433, 2821653, 'Cartagena', 'Medellin'],
+['P636', '2024-06-12', '10:52:00', '12:50:00', 183918, 644497, 3018149, 'Santa Marta', 'Bogota'],
+['K776', '2024-06-6', '19:01:00', '21:36:00', 340848, 968318, 1259865, 'Santa Marta', 'Cali'],
+['W556', '2024-06-19', '21:50:00', '23:03:00', 169404, 896128, 4830564, 'Cartagena', 'Medellin'],
+['L703', '2024-06-19', '07:09:00', '07:17:00', 107432, 765044, 1848939, 'Santa Marta', 'Cali'],
+['L890', '2024-06-20', '11:09:00', '13:32:00', 391458, 673038, 4485596, 'Medellin', 'Cartagena'],
+['G714', '2024-06-20', '08:01:00', '10:34:00', 368435, 552773, 3427251, 'Bogota', 'Cartagena'],
+['H152', '2024-06-12', '19:12:00', '23:48:00', 143776, 899772, 3900612, 'Cartagena', 'Santa Marta'],       
+['I966', '2024-06-26', '08:57:00', '09:37:00', 228361, 600499, 2154222, 'Cartagena', 'Cali'],
+['R874', '2024-06-19', '05:31:00', '08:40:00', 185702, 943771, 4208738, 'Cartagena', 'Santa Marta'],       
+['U929', '2024-06-19', '15:02:00', '17:21:00', 115796, 647904, 2932337, 'Bogota', 'Medellin'],
+['E389', '2024-06-6', '16:46:00', '20:32:00', 420182, 557153, 4055065, 'Cali', 'Medellin'],
+['L505', '2024-06-12', '04:52:00', '05:23:00', 378191, 677832, 1759483, 'Medellin', 'Cali'],
+['J786', '2024-06-26', '15:44:00', '16:20:00', 464673, 723388, 4718254, 'Cali', 'Bogota'],
+['I506', '2024-06-26', '12:13:00', '13:48:00', 156761, 955557, 4359006, 'Medellin', 'Cartagena'],
+['W151', '2024-06-27', '01:46:00', '03:28:00', 158668, 887450, 1527895, 'Santa Marta', 'Bogota'],
+['I657', '2024-06-5', '23:46:00', '2:48:00', 227358, 920227, 3299390, 'Bogota', 'Medellin'],
+['A722', '2024-06-6', '12:32:00', '14:25:00', 335925, 718598, 3201428, 'Medellin', 'Santa Marta'],
+['G542', '2024-06-27', '10:15:00', '12:58:00', 364902, 620659, 3822832, 'Cali', 'Bogota'],
+['R419', '2024-06-13', '18:45:00', '21:11:00', 263221, 823412, 1802097, 'Cali', 'Bogota'],
+['K387', '2024-06-12', '08:52:00', '12:58:00', 111358, 837315, 1740776, 'Medellin', 'Cartagena'],
+['I684', '2024-06-6', '18:25:00', '22:33:00', 268461, 861073, 4378830, 'Santa Marta', 'Cartagena'],        
+['T366', '2024-06-6', '15:59:00', '16:30:00', 441718, 551893, 1443926, 'Bogota', 'Medellin'],
+['G973', '2024-06-27', '07:51:00', '09:59:00', 107735, 812320, 4667378, 'Cartagena', 'Medellin'],
+['P628', '2024-06-20', '20:47:00', '21:45:00', 259683, 878251, 1406197, 'Cali', 'Bogota'],
+['V577', '2024-06-20', '19:47:00', '23:12:00', 321437, 838480, 2594022, 'Bogota', 'Medellin'],
+['Y916', '2024-06-5', '19:05:00', '20:07:00', 146788, 717336, 2479818, 'Bogota', 'Medellin'],
+['C616', '2024-06-6', '14:43:00', '19:14:00', 251102, 768356, 3231604, 'Bogota', 'Medellin'],
+['Z502', '2024-06-27', '02:33:00', '04:46:00', 135039, 739155, 3841687, 'Santa Marta', 'Medellin'],        
+['O706', '2024-06-19', '03:33:00', '08:12:00', 108543, 552765, 4776384, 'Cartagena', 'Medellin'],
+['A425', '2024-06-12', '05:16:00', '07:38:00', 428767, 803167, 3465554, 'Bogota', 'Cartagena'],
+['A643', '2024-06-27', '02:41:00', '06:50:00', 133731, 965070, 1155231, 'Bogota', 'Santa Marta'],
+['C594', '2024-06-6', '20:14:00', '22:16:00', 179770, 755917, 3525256, 'Cartagena', 'Cali'],
+['X712', '2024-06-5', '04:28:00', '05:47:00', 367356, 997236, 2511543, 'Santa Marta', 'Cartagena'],        
+['X517', '2024-06-26', '13:23:00', '16:23:00', 409500, 657451, 2024557, 'Cali', 'Cartagena'],
+['M302', '2024-06-20', '15:15:00', '17:10:00', 138614, 638674, 4057270, 'Cartagena', 'Cali'],
+['X448', '2024-06-12', '14:57:00', '16:48:00', 256801, 649687, 2492053, 'Medellin', 'Bogota'],
+['K415', '2024-06-6', '01:59:00', '02:58:00', 118208, 955980, 3967119, 'Cartagena', 'Cali'],
+['N999', '2024-06-20', '00:02:00', '01:28:00', 113404, 742916, 3870717, 'Cali', 'Bogota'],
+['Q579', '2024-06-19', '10:13:00', '13:46:00', 442756, 900225, 4970730, 'Bogota', 'Cali'],
+['O632', '2024-06-5', '10:46:00', '11:04:00', 450503, 759587, 3350417, 'Cali', 'Medellin'],
+['W768', '2024-06-5', '00:14:00', '02:37:00', 309428, 530313, 3146101, 'Cartagena', 'Santa Marta'],        
+['N700', '2024-06-20', '17:02:00', '21:47:00', 428761, 586568, 4387318, 'Cali', 'Medellin'],
+['A198', '2024-06-13', '10:07:00', '11:34:00', 471496, 637023, 3708333, 'Santa Marta', 'Cali'],
+['N508', '2024-06-20', '07:49:00', '11:17:00', 380455, 885626, 1079810, 'Cali', 'Bogota'],
+['S830', '2024-06-26', '06:11:00', '08:05:00', 136210, 609050, 1031737, 'Medellin', 'Bogota'],
+['B193', '2024-06-12', '11:55:00', '16:16:00', 322687, 776707, 3559620, 'Santa Marta', 'Medellin'],        
+['N925', '2024-06-20', '20:09:00', '23:27:00', 348655, 584679, 2803067, 'Bogota', 'Cali'],
+['O805', '2024-06-19', '08:11:00', '12:14:00', 180125, 637210, 4660148, 'Cartagena', 'Cali'],
+['B165', '2024-06-20', '00:21:00', '03:01:00', 285230, 798592, 4037787, 'Medellin', 'Cali'],
+['Q419', '2024-06-6', '18:09:00', '20:04:00', 336342, 966902, 3843081, 'Santa Marta', 'Bogota'],
+['H905', '2024-06-6', '11:56:00', '13:11:00', 345069, 702454, 1287428, 'Cali', 'Santa Marta'],
+['R873', '2024-06-6', '00:14:00', '04:15:00', 209011, 932430, 2499023, 'Santa Marta', 'Cali'],
+['T810', '2024-06-6', '22:03:00', '00:13:00', 353905, 622617, 1739971, 'Medellin', 'Santa Marta'],
+['R507', '2024-06-20', '03:35:00', '05:14:00', 338290, 891960, 3268081, 'Cartagena', 'Bogota'],
+['E279', '2024-06-27', '03:32:00', '07:31:00', 112594, 535012, 2407140, 'Cali', 'Bogota'],
+['T179', '2024-06-5', '21:42:00', '23:56:00', 194995, 970417, 3446179, 'Medellin', 'Bogota'],
+['E348', '2024-06-6', '14:21:00', '17:45:00', 200805, 661664, 1423079, 'Cartagena', 'Cali'],
+['V809', '2024-06-5', '15:17:00', '18:30:00', 412564, 851500, 4680941, 'Santa Marta', 'Medellin'],
+['D483', '2024-06-12', '04:31:00', '09:24:00', 232173, 607087, 4661950, 'Cali', 'Cartagena'],
+['F592', '2024-06-20', '20:57:00', '23:35:00', 387337, 666898, 4024585, 'Medellin', 'Cartagena'],
+['B209', '2024-06-6', '07:51:00', '10:33:00', 422422, 832491, 3948879, 'Santa Marta', 'Cartagena'],        
+['F812', '2024-06-26', '04:51:00', '08:56:00', 100947, 539536, 3632244, 'Cali', 'Cartagena'],
+['X552', '2024-06-26', '04:54:00', '07:10:00', 271127, 656834, 4845023, 'Cartagena', 'Santa Marta'],       
+['I848', '2024-06-5', '07:45:00', '12:08:00', 180814, 648460, 4560674, 'Cartagena', 'Bogota'],
+['J755', '2024-06-20', '02:52:00', '07:15:00', 352497, 973921, 4954962, 'Cali', 'Medellin'],
+['Y216', '2024-06-19', '02:44:00', '05:12:00', 339920, 690835, 3549467, 'Cartagena', 'Santa Marta'],       
+['G442', '2024-06-12', '01:09:00', '03:41:00', 346049, 850291, 4890999, 'Medellin', 'Cali'],
+['V932', '2024-06-12', '16:57:00', '18:53:00', 368937, 836969, 2128948, 'Santa Marta', 'Medellin'],        
+['Q252', '2024-06-20', '08:20:00', '13:01:00', 477214, 801662, 4676437, 'Cartagena', 'Cali'],
+['D848', '2024-06-27', '11:08:00', '14:48:00', 239379, 992500, 3004583, 'Bogota', 'Santa Marta'],
+['S569', '2024-06-5', '14:40:00', '16:24:00', 198988, 955922, 4074101, 'Bogota', 'Medellin'],
+['I656', '2024-06-13', '20:31:00', '23:13:00', 283863, 587002, 3987051, 'Medellin', 'Cali'],
+['S129', '2024-06-6', '18:08:00', '19:08:00', 377016, 650034, 1915104, 'Medellin', 'Cartagena'],
+['N232', '2024-06-5', '16:35:00', '19:08:00', 186616, 590890, 2616295, 'Medellin', 'Santa Marta'],
+['M191', '2024-06-20', '03:11:00', '07:02:00', 343481, 664520, 3274677, 'Cartagena', 'Medellin'],
+['H180', '2024-06-20', '00:19:00', '02:53:00', 314037, 672798, 3793121, 'Santa Marta', 'Cali'],
+['V900', '2024-06-19', '10:39:00', '13:52:00', 361362, 575041, 4335294, 'Santa Marta', 'Cali'],
+['Q449', '2024-06-27', '18:37:00', '20:56:00', 407816, 703210, 4323741, 'Santa Marta', 'Cali'],
+['R250', '2024-06-26', '16:28:00', '18:29:00', 478289, 965855, 2387745, 'Cali', 'Bogota'],
+['T654', '2024-06-26', '12:11:00', '14:20:00', 358074, 736442, 4444497, 'Santa Marta', 'Bogota'],
+['Y804', '2024-06-12', '14:28:00', '16:34:00', 261803, 548104, 1150859, 'Cali', 'Bogota'],
+['E971', '2024-06-12', '22:07:00', '23:12:00', 362030, 972110, 1721417, 'Santa Marta', 'Cartagena'],       
+['U728', '2024-06-12', '15:55:00', '18:43:00', 352021, 909057, 3924712, 'Santa Marta', 'Medellin'],
+['U522', '2024-06-13', '12:46:00', '14:54:00', 169490, 503891, 2723741, 'Bogota', 'Cartagena'],
+['V560', '2024-06-26', '08:41:00', '11:20:00', 118816, 675485, 2104917, 'Santa Marta', 'Cali']]
+    
+    return flights
+# opciones = [
+#     ['Z328', '2024-06-5', '08:13:00', '10:35:00',  'Santa Marta', 'Bogota'],
+#     ['X633', '2024-06-6', '02:55:00', '05:58:00',  'Santa Marta', 'Cartagena'],
+#     ['G611', '2024-06-12', '16:50:00', '17:07:00',  'Medellin', 'Santa Marta'],
+#     ['J786', '2024-06-26', '15:44:00', '16:20:00',  'Cali', 'Bogota'],
+#     [ 'I506', '2024-06-26', '12:13:00', '13:48:00',  'Medellin', 'Cartagena'],
+#     ['W151', '2024-06-27', '01:46:00', '03:28:00',  'Santa Marta', 'Bogota'],
+#     ['I657', '2024-06-5', '23:46:00', '2:48:00', 'Bogota', 'Medellin'],
+#     ['A722', '2024-06-6', '12:32:00', '14:25:00', 'Medellin', 'Santa Marta'],
+#     ['G542', '2024-06-27', '10:15:00', '12:58:00',  'Cali', 'Bogota'],
+#     ['R419', '2024-06-13', '18:45:00', '21:11:00',  'Cali', 'Bogota'],
+#     ['K387', '2024-06-12', '08:52:00', '12:58:00',  'Medellin', 'Cartagena'],
+#     ['I684', '2024-06-6', '18:25:00', '22:33:00',  'Santa Marta', 'Cartagena'],
+#     ['T366', '2024-06-6', '15:59:00', '16:30:00',  'Bogota', 'Medellin'],
+#     ['G973', '2024-06-27', '07:51:00', '09:59:00', 'Cartagena', 'Medellin'],
+#     ['P628', '2024-06-20', '20:47:00', '21:45:00',  'Cali', 'Bogota'],
+#     ['V577', '2024-06-20', '19:47:00', '23:12:00',  'Bogota', 'Medellin'],
+#     ['Y916', '2024-06-5', '19:05:00', '20:07:00',  'Bogota', 'Medellin'],
+#     ['C616', '2024-06-6', '14:43:00', '19:14:00',  'Bogota', 'Medellin'],
+#    ['Z502', '2024-06-27', '02:33:00', '04:46:00', 'Santa Marta', 'Medellin'],
+# ['O706', '2024-06-19', '03:33:00', '08:12:00',  'Cartagena', 'Medellin'],
+# ['A425', '2024-06-12', '05:16:00', '07:38:00',  'Bogota', 'Cartagena'],
+# ['A643', '2024-06-27', '02:41:00', '06:50:00',  'Bogota', 'Santa Marta'],
+# ['C594', '2024-06-6', '20:14:00', '22:16:00',  'Cartagena', 'Cali'],
+# ['X712', '2024-06-5', '04:28:00', '05:47:00',  'Santa Marta', 'Cartagena'],
+# ['X517', '2024-06-26', '13:23:00', '16:23:00', 'Cali', 'Cartagena'],
+# ['M302', '2024-06-20', '15:15:00', '17:10:00',  'Cartagena', 'Cali'],
+# ['X448', '2024-06-12', '14:57:00', '16:48:00',  'Medellin', 'Bogota'],
+# ['K415', '2024-06-6', '01:59:00', '02:58:00',  'Cartagena', 'Cali'],
+# ['N999', '2024-06-20', '00:02:00', '01:28:00',  'Cali', 'Bogota'],
+# ['Q579', '2024-06-19', '10:13:00', '13:46:00', 'Bogota', 'Cali'],
+# ['O632', '2024-06-5', '10:46:00', '11:04:00',  'Cali', 'Medellin'],
+# ['W768', '2024-06-5', '00:14:00', '02:37:00',  'Cartagena', 'Santa Marta'],
+# ['N700', '2024-06-20', '17:02:00', '21:47:00',  'Cali', 'Medellin'],
+# ['A198', '2024-06-13', '10:07:00', '11:34:00',  'Santa Marta', 'Cali'],
+# ['N508', '2024-06-20', '07:49:00', '11:17:00', 'Cali', 'Bogota'],
+# ['S830', '2024-06-26', '06:11:00', '08:05:00', 'Medellin', 'Bogota'],
+# ['B193', '2024-06-12', '11:55:00', '16:16:00', 'Santa Marta', 'Medellin'] ,
+# ['N925', '2024-06-20', '20:09:00', '23:27:00', 'Bogota', 'Cali'],
+# ['O805', '2024-06-19', '08:11:00', '12:14:00', 'Cartagena', 'Cali'],
+# ['B165', '2024-06-20', '00:21:00', '03:01:00', 'Medellin', 'Cali'],
+# ['Q419', '2024-06-6', '18:09:00', '20:04:00', 'Santa Marta', 'Bogota'],
+# ['H905', '2024-06-6', '11:56:00', '13:11:00', 'Cali', 'Santa Marta'],
+# ['R873', '2024-06-6', '00:14:00', '04:15:00', 'Santa Marta', 'Cali'],
+# ['T810', '2024-06-6', '22:03:00', '00:13:00', 'Medellin', 'Santa Marta'],
+# ['R507', '2024-06-20', '03:35:00', '05:14:00', 'Cartagena', 'Bogota'],
+# ['E279', '2024-06-27', '03:32:00', '07:31:00', 'Cali', 'Bogota'],
+# ['T179', '2024-06-5', '21:42:00', '23:56:00',  'Medellin', 'Bogota'],
+# ['E348', '2024-06-6', '14:21:00', '17:45:00', 'Cartagena', 'Cali'],
+# ['V809', '2024-06-5', '15:17:00', '18:30:00', 'Santa Marta', 'Medellin'],
+# ['D483', '2024-06-12', '04:31:00', '09:24:00', 'Cali', 'Cartagena'],
+# ['F592', '2024-06-20', '20:57:00', '23:35:00', 'Medellin', 'Cartagena'],
+# ['B209', '2024-06-6', '07:51:00', '10:33:00',  'Santa Marta', 'Cartagena'] ,
+# ['F812', '2024-06-26', '04:51:00', '08:56:00', 'Cali', 'Cartagena'],
+# ['X552', '2024-06-26', '04:54:00', '07:10:00', 'Cartagena', 'Santa Marta'] ,
+# ['I848', '2024-06-5', '07:45:00', '12:08:00', 'Cartagena', 'Bogota'],
+# ['J755', '2024-06-20', '02:52:00', '07:15:00', 'Cali', 'Medellin'],
+# ['Y216', '2024-06-19', '02:44:00', '05:12:00', 'Cartagena', 'Santa Marta'] ,
+# ['G442', '2024-06-12', '01:09:00', '03:41:00', 'Medellin', 'Cali'],
+# ['V932', '2024-06-12', '16:57:00', '18:53:00', 'Santa Marta', 'Medellin']   ,
+# ['Q252', '2024-06-20', '08:20:00', '13:01:00',  'Cartagena', 'Cali'],
+# ['D848', '2024-06-27', '11:08:00', '14:48:00',  'Bogota', 'Santa Marta'],
+# ['S569', '2024-06-5', '14:40:00', '16:24:00',  'Bogota', 'Medellin'],
+# ['I656', '2024-06-13', '20:31:00', '23:13:00',  'Medellin', 'Cali'],
+# ['S129', '2024-06-6', '18:08:00', '19:08:00',  'Medellin', 'Cartagena'],
+# ['N232', '2024-06-5', '16:35:00', '19:08:00', 'Medellin', 'Santa Marta'],
+# ['M191', '2024-06-20', '03:11:00', '07:02:00', 'Cartagena', 'Medellin'],
+# ['H180', '2024-06-20', '00:19:00', '02:53:00', 'Santa Marta', 'Cali'],
+# ['V900', '2024-06-19', '10:39:00', '13:52:00', 'Santa Marta', 'Cali'],
+# ['Q449', '2024-06-27', '18:37:00', '20:56:00', 'Santa Marta', 'Cali'],
+# ['R250', '2024-06-26', '16:28:00', '18:29:00', 'Cali', 'Bogota'],
+# ['T654', '2024-06-26', '12:11:00', '14:20:00', 'Santa Marta', 'Bogota'],
+# ['Y804', '2024-06-12', '14:28:00', '16:34:00', 'Cali', 'Bogota'],
+# ['E971', '2024-06-12', '22:07:00', '23:12:00', 'Santa Marta', 'Cartagena'] ,
+# ['U728', '2024-06-12', '15:55:00', '18:43:00',  'Santa Marta', 'Medellin'],
+# ['U522', '2024-06-13', '12:46:00', '14:54:00',  'Bogota', 'Cartagena'],
+# ['V560', '2024-06-26', '08:41:00', '11:20:00', 'Santa Marta', 'Cali'],
+# ]
 
 
-contadores = [0] * len(opciones)
+# contadores = [0] * len(opciones)
 
-# Configuración de la paginación
-botones_por_pagina = 10
-pagina_actual = 0
-total_paginas = (len(opciones) + botones_por_pagina - 1) // botones_por_pagina
+# # Configuración de la paginación
+# botones_por_pagina = 10
+# pagina_actual = 0
+# total_paginas = (len(opciones) + botones_por_pagina - 1) // botones_por_pagina
 
-def incrementar_contador(i):
-    contadores[i] += 1
-    labels[i].config(text=f"{opciones[i]}: {contadores[i]}")
+# def incrementar_contador(i):
+#     contadores[i] += 1
+#     labels[i].config(text=f"{opciones[i]}: {contadores[i]}")
 
-def crear_botones(inicio, fin):
-    for i in range(inicio, fin):
-        boton = tk.Button(frame, text=f"{opciones[i]}", command=lambda i=i: incrementar_contador(i))
-        boton.grid(row=i % 18, column=0, pady=5)
-        botones.append(boton)
-        labels[i] = tk.Label(frame, text=f"{opciones[i]}: {contadores[i]}")
-        labels[i].grid(row=i % 18, column=1, padx=10)
+# def crear_botones(inicio, fin):
+#     for i in range(inicio, fin):
+#         boton = tk.Button(frame, text=f"{opciones[i]}", command=lambda i=i: incrementar_contador(i))
+#         boton.grid(row=i % 18, column=0, pady=5)
+#         botones.append(boton)
+#         labels[i] = tk.Label(frame, text=f"{opciones[i]}: {contadores[i]}")
+#         labels[i].grid(row=i % 18, column=1, padx=10)
 
-def cambiar_pagina(direccion):
-    global pagina_actual
-    if direccion == "adelante":
-        pagina_actual += 1
-    elif direccion == "atras":
-        pagina_actual -= 1
+# def cambiar_pagina(direccion):
+#     global pagina_actual
+#     if direccion == "adelante":
+#         pagina_actual += 1
+#     elif direccion == "atras":
+#         pagina_actual -= 1
 
-    if pagina_actual < 0:
-        pagina_actual = 0
-    elif pagina_actual >= total_paginas:
-        pagina_actual = total_paginas - 1
+#     if pagina_actual < 0:
+#         pagina_actual = 0
+#     elif pagina_actual >= total_paginas:
+#         pagina_actual = total_paginas - 1
 
-    actualizar_botones()
+#     actualizar_botones()
 
-def actualizar_botones():
-    for boton in botones:
-        boton.grid_forget()
-    inicio = pagina_actual * botones_por_pagina
-    fin = min((pagina_actual + 1) * botones_por_pagina, len(opciones))
-    crear_botones(inicio, fin)
+# def actualizar_botones():
+#     for boton in botones:
+#         boton.grid_forget()
+#     inicio = pagina_actual * botones_por_pagina
+#     fin = min((pagina_actual + 1) * botones_por_pagina, len(opciones))
+#     crear_botones(inicio, fin)
 
-    if pagina_actual == total_paginas - 1:
-        boton_extra.grid(row=19, column=0, columnspan=2, pady=20)
-    else:
-        boton_extra.grid_forget()
+#     if pagina_actual == total_paginas - 1:
+#         boton_extra.grid(row=19, column=0, columnspan=2, pady=20)
+#     else:
+#         boton_extra.grid_forget()
 
-def iniciar_interfaz():
-    global frame, frame_botones_pagina, root, labels, botones, boton_extra
-    root = tk.Tk()
-    root.geometry("1200x900")
-    root.resizable(0,0)
-    root.configure(bg="#23BAC4")
-    root.title("Contadores de Opciones")
+# def iniciar_interfaz():
+#     global frame, frame_botones_pagina, root, labels, botones, boton_extra
+#     root = tk.Tk()
+#     root.geometry("1200x900")
+#     root.resizable(0,0)
+#     root.configure(bg="#23BAC4")
+#     root.title("Contadores de Opciones")
 
-    global labels, botones
-    labels = {}
-    botones = []
+#     global labels, botones
+#     labels = {}
+#     botones = []
 
-    frame = tk.Frame(root,bg="#338DFF")
-    frame.grid(row=0, column=0)
+#     frame = tk.Frame(root,bg="#338DFF")
+#     frame.grid(row=0, column=0)
 
-    crear_botones(0, min(botones_por_pagina, len(opciones)))
+#     crear_botones(0, min(botones_por_pagina, len(opciones)))
 
-    frame_botones_pagina = tk.Frame(root, bg = "#23BAC4")
-    frame_botones_pagina.grid(row=1, column=0, pady=10)
+#     frame_botones_pagina = tk.Frame(root, bg = "#23BAC4")
+#     frame_botones_pagina.grid(row=1, column=0, pady=10)
 
-    btn_atras = tk.Button(frame_botones_pagina, text="Página anterior", command=lambda: cambiar_pagina("atras"), bg="#68FF33")
-    btn_atras.grid(row=0, column=0, padx=5)
+#     btn_atras = tk.Button(frame_botones_pagina, text="Página anterior", command=lambda: cambiar_pagina("atras"), bg="#68FF33")
+#     btn_atras.grid(row=0, column=0, padx=5)
 
-    btn_adelante = tk.Button(frame_botones_pagina, text="Página siguiente", command=lambda: cambiar_pagina("adelante"), bg="#68FF33")
-    btn_adelante.grid(row=0, column=1, padx=5)
+#     btn_adelante = tk.Button(frame_botones_pagina, text="Página siguiente", command=lambda: cambiar_pagina("adelante"), bg="#68FF33")
+#     btn_adelante.grid(row=0, column=1, padx=5)
 
-    boton_extra = tk.Button(root, text="Done", bg="#FFD700", command=asientos)
+#     boton_extra = tk.Button(root, text="Done", bg="#FFD700", command=asientos)
 
-    root.mainloop()
+#     root.mainloop()
+
+def select_flight(ori, date, dest):
+    available_flights = [fly for fly in tabladevuelos() if fly[7] == ori and fly[8] == dest and fly[1] == date]
+
+    if len(available_flights) == 0:
+        print("We're sorry, we don't have available flights")
+        
+    ####ESTO PUEDE SERVIR PARA EL BOLETO
+
+    # else:
+    #     for fly in available_flights:
+    #         print(f"""FLIGHT: {fly[0]}
+    #                   DEPARTURE TIME: {fly[2]}
+    #                   ARRIVAL TIME: {fly[3]}""")
+
+def buscador():
+    buscar = tk.Tk()
+    buscar.title("Buscador de vuelos")
+    buscar.geometry("800x600")
+
+    origen_label = tk.Label(buscar, text="Origen", font=("Arial", 13))
+    origen_label.place(relx= 0.17, rely= 0.05)
+
+    origen_entry = tk.Entry(buscar, font=("Arial", 13), bg="lightgreen")
+    origen_entry.place(relx= 0.1, rely= 0.1)
+
+    ori = origen_entry.get()
+
+    #
+
+    fecha_label = tk.Label(buscar, text="Fecha", font=("Arial", 13))
+    fecha_label.place(relx= 0.47, rely= 0.05)
+
+    fecha_entry = tk.Entry(buscar, font=("Arial", 13), bg="lightgreen")
+    fecha_entry.place(relx= 0.4, rely= 0.1)
+
+    date = fecha_entry.get()
+
+    #
+
+    destino_label = tk.Label(buscar, text="Destino", font=("Arial", 13))
+    destino_label.place(relx= 0.77, rely= 0.05)
+
+    destino_entry = tk.Entry(buscar, font=("Arial", 13), bg="lightgreen")
+    destino_entry.place(relx= 0.7, rely= 0.1)
+
+    dest = destino_entry.get()
+
+    select_flight(ori, date, dest)
+
+    buscar.mainloop()
+
 
 #================================Ventana de los asientos===========================================================================
 #===================================================================================================================================
@@ -579,6 +718,39 @@ def medio_pago():
 if __name__ == '__main__':
     # main_windows()
     #medio_pago()
-    travel_windows()
+    inicio_sesion()    
     
 #la ventana del Check-in esta hecha en google keep
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
