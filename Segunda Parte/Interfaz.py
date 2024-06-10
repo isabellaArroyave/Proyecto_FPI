@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
-
+import random
 import customtkinter as ctk
 
 #=========================================Ventana para registrarse=======================================================================
+#========================================================================================================================================
+#========================================================================================================================================
+
 def read_user(gender, first_name, last_name, identification, nationality, telephone, email):
 
     try:
@@ -118,7 +121,10 @@ def main_windows():
     check_in_buttom = tk.Button(windows, text="Registrarme", font = ("Times New Roman", 14), command = windows_check_in, bg = "light green")
     check_in_buttom.pack(side = "bottom", anchor = "s", pady= 50)
 
-#============================Ventanas de inicio sesion=====================================================================================
+#==================================================Ventanas de inicio sesion=======================================================
+#========================================================================================================================================
+#========================================================================================================================================
+
 def user_existence(correo_entry):
     with open("user_emails.txt", "w") as e_file: 
         emails = e_file.readlines()
@@ -175,6 +181,8 @@ def inicio_sesion():
 
 #============================Ventanas de los 100 botones=====================================================================================
 #============================================================================================================================================
+#========================================================================================================================================
+
 
 def tabladevuelos():
     flights = [['Z328', '2024-06-5', '08:13:00', '10:35:00', 244463, 538669, 1666594, 'Santa Marta', 'Bogota'],
@@ -327,6 +335,8 @@ def select_flight():
 
 #================================Ventana del buscador de vuelos==========================================================================
 #===================================================================================================================================
+#========================================================================================================================================
+
 
 
 def buscador():
@@ -338,7 +348,7 @@ def buscador():
     origen_label = tk.Label(buscar, text="Origen", font=("Arial", 13))
     origen_label.place(relx= 0.17, rely= 0.05)
 
-    opciones_origen = ["Santa Marta", "Bogotá", "Cartagena", "Medellin", "Cali"]
+    opciones_origen = ["Santa Marta", "Bogota", "Cartagena", "Medellin", "Cali"]
     origen_entry = ttk.Combobox(buscar, values=opciones_origen, state='readonly')
     origen_entry.place(relx= 0.1, rely= 0.1)
     origen_entry.set("Escoja el origen")
@@ -358,7 +368,7 @@ def buscador():
     destino_label = tk.Label(buscar, text="Destino", font=("Arial", 13))
     destino_label.place(relx= 0.77, rely= 0.05)
 
-    opciones_destino = ["Santa Marta", "Bogotá", "Cartagena", "Medellin", "Cali"]
+    opciones_destino = ["Santa Marta", "Bogota", "Cartagena", "Medellin", "Cali"]
     destino_entry = ttk.Combobox(buscar, values=opciones_destino, state='readonly')
     destino_entry.place(relx= 0.7, rely= 0.1)
     destino_entry.set("Escoja el destino")
@@ -389,6 +399,8 @@ def buscador():
 
 #================================Ventana de los asientos===========================================================================
 #===================================================================================================================================
+#========================================================================================================================================
+
 
 
 
@@ -457,7 +469,11 @@ def seats_Airplane():
     seats.mainloop()
 
 #========================Ventana donde se muestra los asientos de la categoria Aluminio==============================================================================================
+#========================================================================================================================================
+#========================================================================================================================================
+
 def crear_asientos_alum(frame_alum, row_alum, column_alum):
+    asientos = []
     for r in range(row_alum):
         for c in range(column_alum):
             asiento_id_alum = f"{chr(65+c)}{r+1}"
@@ -470,9 +486,15 @@ def crear_asientos_alum(frame_alum, row_alum, column_alum):
             etiqueta_alum = tk.Label(frame_alum, text=asiento_id_alum, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
             etiqueta_alum.grid(row=r, column=c, padx=5, pady=5)
-    
+            asientos.append(etiqueta_alum)
+    return asientos
 
-def aluminio ():
+def cambiar_color_asiento(asientos):
+    if asientos:
+        asiento = random.choice(asientos)
+        asiento.config(bg="orange")    
+
+def aluminio():
     windows_alum = tk.Tk()
     windows_alum.title("Asientos en aluminio")
     windows_alum.geometry("1200x900")
@@ -484,7 +506,11 @@ def aluminio ():
     frame_alum.place(relx= 0.8, rely= 0.1, anchor= "n")
     windows_alum.configure(bg="#FFF9ED")
 
-    alum_buttom = tk.Button(windows_alum, text="Aluminio", font = ("Times New Roman", 14), bg = "light blue")
+    asientos = crear_asientos_alum(frame_alum, row_alum, column_alum)
+
+
+    alum_buttom = tk.Button(windows_alum, text="Aluminio", font = ("Times New Roman", 14),
+                    command=lambda: cambiar_color_asiento(asientos), bg = "light blue")
     alum_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def pago_():
@@ -503,12 +529,15 @@ def aluminio ():
     back_aluminio_button = tk.Button(windows_alum, text="Back", font=("Arial", 13),command=regresar_seats_alum, bg="lightblue")
     back_aluminio_button.place(relx=0.2, rely=0.65, anchor="n")
 
-    crear_asientos_alum(frame_alum, row_alum, column_alum)
 
     windows_alum.mainloop()
 
-#========================Ventana donde se muestra los asientos de la categoria Diamante==============================================================================================
+
+#========================Ventana donde se muestra los asientos de la categoria Diamante===============================================
+#========================================================================================================================================
+#========================================================================================================================================
 def crear_asientos_diam(frame_diam, row_diam, column_diam):
+    diam_asientos = []
     for r in range(row_diam):
         for c in range(column_diam):
             asiento_id_diam = f"{chr(65+c)}{r+1}"
@@ -518,6 +547,13 @@ def crear_asientos_diam(frame_diam, row_diam, column_diam):
             etiqueta_diam = tk.Label(frame_diam, text=asiento_id_diam, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
             etiqueta_diam.grid(row=r, column=c, padx=5, pady=5)
+            diam_asientos.append(etiqueta_diam)
+    return diam_asientos
+
+def cambiar_color_asiento_diam(diam_asientos):
+    if diam_asientos:
+        asiento_diam = random.choice(diam_asientos)
+        asiento_diam.config(bg="orange")
     
 
 def diamante ():
@@ -532,7 +568,11 @@ def diamante ():
     frame_diam.place(relx= 0.8, rely= 0.1, anchor= "n")
     windows_diam.configure(bg="#FFF9ED")
 
-    diam_buttom = tk.Button(windows_diam, text="Diamante", font = ("Times New Roman", 14), bg = "lightgreen")
+    diam_asientos = crear_asientos_diam(frame_diam, row_diam, column_diam)
+
+
+    diam_buttom = tk.Button(windows_diam, text="Diamante", font = ("Times New Roman", 14),
+                    command=lambda: cambiar_color_asiento_diam(diam_asientos), bg = "lightgreen")
     diam_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def pago_():
@@ -551,12 +591,14 @@ def diamante ():
     back_diamond_button = tk.Button(windows_diam, text="Back", font=("Arial", 13),command=regresar_seats_diam, bg="lightblue")
     back_diamond_button.place(relx=0.2, rely=0.65, anchor="n")
 
-    crear_asientos_diam(frame_diam, row_diam, column_diam)
 
 
     windows_diam.mainloop()
 
-#========================Ventana donde se muestra los asientos de la categoria Premium==============================================================================================
+#========================Ventana donde se muestra los asientos de la categoria Premium=====================================================
+#========================================================================================================================================
+#========================================================================================================================================
+
 def crear_asientos_prem(frame_prem, row_prem, column_prem):
     for r in range(row_prem):
         for c in range(column_prem):
@@ -659,10 +701,13 @@ def medio_pago():
 
     pago.mainloop()
 
+#========================================================================================================================================
+#========================================================================================================================================
+#========================================================================================================================================
+
 
 if __name__ == '__main__':
-    # main_windows()
-    #medio_pago()
+    
     inicio_sesion()    
     
 #la ventana del Check-in esta hecha en google keep
