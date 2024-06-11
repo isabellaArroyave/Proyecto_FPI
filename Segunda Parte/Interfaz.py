@@ -7,7 +7,15 @@ import customtkinter as ctk
 #========================================================================================================================================
 #========================================================================================================================================
 
-def read_user(gender, first_name, last_name, identification, nationality, telephone, email):
+def read_user():
+
+    gender = texto_genero.get()
+    first_name = texto_nombre.get()
+    last_name = texto_apellido.get()
+    identification = texto_id.get()
+    nationality = texto_nacionalidad.get()
+    telephone = texto_telefono.get()
+    email = texto_correo.get()
 
     try:
         if not gender:
@@ -47,6 +55,8 @@ def main_windows():
     windows.resizable(0,0)
     windows.configure(bg="#23BAC4")
 
+    global texto_nombre, texto_apellido, texto_correo, texto_id, texto_telefono, texto_genero, texto_nacionalidad
+
 
     etiqueta_welcome = tk.Label(windows, text="Welcome to airlines", font=("Times New Roman", 18, "bold"), fg="white", bg="#0B666A")
     etiqueta_welcome.pack(padx=100)
@@ -58,65 +68,55 @@ def main_windows():
     marco_derecha = tk.Frame(windows,bg="#23BAC4")
     marco_derecha.pack(side = "right", padx=50)
 
-    etiqueta_nombre = tk.Label(marco_izquierda, text="Primer Nombre", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_nombre = tk.Label(marco_izquierda, text="Name", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_nombre.pack(pady=10)
 
 
     texto_nombre = tk.Entry(marco_izquierda,font=("Arial", 14))
     texto_nombre.pack(pady=10)
 
-    etiqueta_apellido = tk.Label(marco_izquierda, text="Primer Apellido", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_apellido = tk.Label(marco_izquierda, text="Last Name", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_apellido.pack(pady=10)
 
     texto_apellido = tk.Entry(marco_izquierda,font=("Arial", 14))
     texto_apellido.pack(pady=10)
 
-    etiqueta_correo = tk.Label(marco_izquierda, text="Correo Electronico", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_correo = tk.Label(marco_izquierda, text="Email", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_correo.pack(pady=10)
 
 
     texto_correo = tk.Entry(marco_izquierda,font=("Arial", 14))
     texto_correo.pack(pady=10)
 
-    etiqueta_id = tk.Label(marco_derecha, text = "Identificacion", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_id = tk.Label(marco_derecha, text = "ID", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_id.pack(pady=10)
 
     
     texto_id = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_id.pack(pady=10)
 
-    etiqueta_telefono = tk.Label(marco_derecha, text = "Telefono", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_telefono = tk.Label(marco_derecha, text = "Telephone", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_telefono.pack(pady=10)
 
     texto_telefono = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_telefono.pack(pady=10)
 
-    etiqueta_genero = tk.Label(marco_derecha, text = "Genero", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_genero = tk.Label(marco_derecha, text = "Gender", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_genero.pack(pady=10)
 
     texto_genero = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_genero.pack(pady=10)
 
-    etiqueta_nacionalidad = tk.Label(marco_derecha, text = "Nacionalidad", font=("Times New Roman", 18), fg="white", bg="#0B666A")
+    etiqueta_nacionalidad = tk.Label(marco_derecha, text = "Nacionality", font=("Times New Roman", 18), fg="white", bg="#0B666A")
     etiqueta_nacionalidad.pack(pady=10)
     
     texto_nacionalidad = tk.Entry(marco_derecha, font=("Arial", 14))
     texto_nacionalidad.pack(pady=10)
 
-    gender = texto_genero.get()
-    first_name = texto_nombre.get()
-    last_name = texto_apellido.get()
-    identification = texto_id.get()
-    nationality = texto_nacionalidad.get()
-    telephone = texto_telefono.get()
-    email = texto_correo.get()
-
-    read_user(gender, first_name, last_name, identification, nationality, telephone, email)
-
     def windows_check_in():
         windows.destroy()
-        travel_windows()
-        travel_windows.deiconify()
+        inicio_sesion()
+        inicio_sesion.deiconify()
 
     check_in_buttom = tk.Button(windows, text="Registrarme", font = ("Times New Roman", 14), command = windows_check_in, bg = "light green")
     check_in_buttom.pack(side = "bottom", anchor = "s", pady= 50)
@@ -125,21 +125,23 @@ def main_windows():
 #========================================================================================================================================
 #========================================================================================================================================
 
-def user_existence(correo_entry):
-    with open("user_emails.txt", "w") as e_file: 
+def user_existence():
+    email = correo_entry.get()
+    with open("user_emails.txt", "r") as e_file: 
         emails = e_file.readlines()
         emails = [i.strip() for i in emails]
-        if correo_entry in emails:
-            pass # tiene que llevarme a la ventana del buscador
+        if email in emails:
+            buscador()
         else:
-            read_user()
+            main_windows()
 
-def email_verification(correo_entry): ##arreglar parametro
+def email_verification(): ##arreglar parametro
+    email = texto_correo.get()
     while True:
             try:
-                if "@" in correo_entry and "." in correo_entry:
+                if "@" in email and "." in email:
                     print("Email verified")
-                    return correo_entry
+                    return email
             except:
                 raise ValueError("Email not accepted, please enter a valid email.")
             
@@ -153,25 +155,27 @@ def inicio_sesion():
         buscador()
         buscador.deiconify()
 
+    global correo_entry
+
     # frame1 = tk.Frame(seats, bg="#FFF9ED")
     # frame1.place(relx= 0.8, rely= 0.1, anchor= "n")
     
-    correo = tk.Label(sesion, text = "Correo Electronico", font = ("Times New Roman", 18), fg = "white", bg="#0B666A")
-    correo.place(relx= 0.5, rely= 0.3, anchor= "n")
+    correo = tk.Label(sesion, text = "Email", font = ("Times New Roman", 18), fg = "white", bg="#0B666A")
+    correo.place(relx= 0.5, rely= 0.3, anchor= "n")  
 
     correo_entry = tk.Entry(sesion, font = ("Times New Roman", 14), bg="#58FF9F")
     correo_entry.place(relx= 0.5, rely= 0.45, anchor= "n")
     
-    sesion_buttom = tk.Button(sesion, text = "Verificar", font = ("Times New Roman", 14), command = lambda: user_existence(correo_entry.get()), bg = "light green")
+    sesion_buttom = tk.Button(sesion, text = "Log in", font = ("Times New Roman", 14), command =user_existence, bg = "light green")
     sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
     
     sesion_buttom = tk.Button(sesion, text = "Iniciar", font = ("Times New Roman", 14), command = ingreso_dato, bg = "light green")
-    sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)
+    sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50)   ###ESTO SE VA A CONVERTIR EN NUESTRO BOTON DE CHECK IN
 
-    def regresar_seats():
-        windows_prem.destroy()
-        seats_Airplane()
-        seats_Airplane.deiconify()
+    # def regresar_seats():
+    #     windows_prem.destroy()
+    #     seats_Airplane()
+    #     seats_Airplane.deiconify()
 
     
 
@@ -289,112 +293,82 @@ def tabladevuelos():
     return flights
 
 
-def select_flight():
-    ori = origen_entry.get()
-    dest = destino_entry.get()
+def filter_flights_by_route(origin, destination):
+    flights = tabladevuelos()
+    return [flight for flight in flights if flight[7] == origin and flight[8] == destination]
 
-    available_flights = [fly for fly in tabladevuelos() if fly[8] == dest and fly[7] == ori]
-    
-    # Clear any existing buttons in the frame 'buscar' before adding new ones
-    for widget in buscar.winfo_children():
-        widget.destroy()
+def get_dates_for_route(flights):
+    return sorted(set(flight[1] for flight in flights))
 
+def create_flight_buttons(flights_frame, flights):
     def asientos():
         buscar.destroy()
         seats_Airplane()
         seats_Airplane.deiconify()
     
-    if available_flights:
-        for i, fly in enumerate(available_flights):
-            flight_text = f"FLIGHT: {fly[0]}, DEPARTURE TIME: {fly[2]}, ARRIVAL TIME: {fly[3]}"
-            vuelos_button = tk.Button(buscar, text=flight_text, font=("Arial", 13), bg="pink", command=asientos)
-            vuelos_button.pack(fill='x', pady=5)  # Adjust placement as needed
+    for widget in flights_frame.winfo_children():
+        widget.destroy()
+    
+    if flights:
+        for flight in flights:
+            flight_text = f"FLIGHT: {flight[0]}, DEPARTURE TIME: {flight[2]}, ARRIVAL TIME: {flight[3]}"
+            vuelos_button = tk.Button(flights_frame, text=flight_text, font=("Arial", 13), bg="pink", command=asientos)
+            vuelos_button.pack(fill='x', pady=5)
     else:
-        no_flights_label = tk.Label(buscar, text="We're sorry, we don't have available flights", font=("Arial", 13))
+        no_flights_label = tk.Label(flights_frame, text="We're sorry, we don't have available flights", font=("Arial", 13))
         no_flights_label.pack(fill='x', pady=5)
 
-# Add these entries to your root or another frame, and then bind/select_flight to a button or an event
+def select_flight():
+    origin = origen_entry.get()
+    destination = destino_entry.get()
 
+    filtered_flights = filter_flights_by_route(origin, destination)
+    dates = get_dates_for_route(filtered_flights)
     
-    # vuelos = tk.Label(buscar, font=("Arial", 13), bg="darkblue")
-    # vuelos.place(relx= 0.5, rely= 0.5, anchor= "center", height= 400, width= 700)
-    
+    for widget in date_tabs.winfo_children():
+        widget.destroy()
 
-    
-
-    #if len(available_flights) == 0:
-    #     print("We're sorry, we don't have available flights")
-        
-    ####ESTO PUEDE SERVIR PARA EL BOLETO
-
-    # else:
-    #     for fly in available_flights:
-    #         print(f"""FLIGHT: {fly[0]}
-    #                   DEPARTURE TIME: {fly[2]}
-    #                   ARRIVAL TIME: {fly[3]}""")
-
-#================================Ventana del buscador de vuelos==========================================================================
-#===================================================================================================================================
-#========================================================================================================================================
-
-
+    if dates:
+        for date in dates:
+            tab = ttk.Frame(date_tabs)
+            date_tabs.add(tab, text=date)
+            flights_for_date = [flight for flight in filtered_flights if flight[1] == date]
+            create_flight_buttons(tab, flights_for_date)
+    else:
+        no_flights_tab = ttk.Frame(date_tabs)
+        date_tabs.add(no_flights_tab, text="No flights")
+        no_flights_label = tk.Label(no_flights_tab, text="We're sorry, we don't have available flights", font=("Arial", 13))
+        no_flights_label.pack(fill='x', pady=5)
 
 def buscador():
-    global vuelos, destino_entry, origen_entry, buscar
+    global vuelos, destino_entry, origen_entry, buscar, fecha_entry, date_tabs
     buscar = tk.Tk()
-    buscar.title("Buscador de vuelos")
+    buscar.title("Flight Searcher")
     buscar.geometry("800x600")
 
-    origen_label = tk.Label(buscar, text="Origen", font=("Arial", 13))
+    origen_label = tk.Label(buscar, text="Origin", font=("Arial", 13))
     origen_label.place(relx= 0.17, rely= 0.05)
 
     opciones_origen = ["Santa Marta", "Bogota", "Cartagena", "Medellin", "Cali"]
     origen_entry = ttk.Combobox(buscar, values=opciones_origen, state='readonly')
     origen_entry.place(relx= 0.1, rely= 0.1)
-    origen_entry.set("Escoja el origen")
+    origen_entry.set("Choose the origin")
 
-    #
+    destino_label = tk.Label(buscar, text="Destination", font=("Arial", 13))
+    destino_label.place(relx= 0.67, rely= 0.05)
 
-    fecha_label = tk.Label(buscar, text="Fecha", font=("Arial", 13))
-    fecha_label.place(relx= 0.47, rely= 0.05)
+    destino_entry = ttk.Combobox(buscar, values=opciones_origen, state='readonly')
+    destino_entry.place(relx= 0.6, rely= 0.1)
+    destino_entry.set("Choose the destination")
 
-    opciones_fecha = ["2024-06-5", "2024-06-6", "2024-06-12", "2024-06-13", "2024-06-19", "2024-06-20", "2024-06-26", "2024-06-27"]
-    fecha_entry = ttk.Combobox(buscar, values=opciones_fecha, state='readonly')
-    fecha_entry.place(relx= 0.4, rely= 0.1)
-    fecha_entry.set("Escoja la fecha")
+    search_button = tk.Button(buscar, text="Search", font=("Arial", 13), command=select_flight, bg="lightblue")
+    search_button.place(relx= 0.45, rely= 0.2)
 
-    #
-
-    destino_label = tk.Label(buscar, text="Destino", font=("Arial", 13))
-    destino_label.place(relx= 0.77, rely= 0.05)
-
-    opciones_destino = ["Santa Marta", "Bogota", "Cartagena", "Medellin", "Cali"]
-    destino_entry = ttk.Combobox(buscar, values=opciones_destino, state='readonly')
-    destino_entry.place(relx= 0.7, rely= 0.1)
-    destino_entry.set("Escoja el destino")
-
-    def asientos():
-        buscar.destroy()
-        seats_Airplane()
-        seats_Airplane.deiconify()
-
-    verificar_buttom = tk.Button(buscar, text = "Verificar", font = ("Times New Roman", 14),command=select_flight, bg = "light green")
-    verificar_buttom.pack(side = "bottom", anchor = "s", pady= 50)
-
-    # available_flights = verificar_buttom.get()
-
-    vuelos = tk.Label(buscar, font=("Arial", 13), bg="darkblue")
-    vuelos.place(relx= 0.5, rely= 0.5, anchor= "center", height= 400, width= 700)
-
-    def regresar_sesion():
-        buscar.destroy()
-        inicio_sesion()
-        inicio_sesion.deiconify()
-
-    back_sesion_button = tk.Button(buscar, text="Back", font=("Arial", 13),command=regresar_sesion, bg="lightblue")
-    back_sesion_button.place(relx=0.2, rely=0.65, anchor="n")
+    date_tabs = ttk.Notebook(buscar)
+    date_tabs.place(relx=0.05, rely=0.3, relwidth=0.9, relheight=0.65)
 
     buscar.mainloop()
+
 
 
 #================================Ventana de los asientos===========================================================================
@@ -420,7 +394,7 @@ def crear_asientos(frame1, row, column):
 
 def seats_Airplane():
     seats = tk.Tk()
-    seats.title("Selección de Asientos de Avión")
+    seats.title("Airplane Seat Selection")
     seats.geometry("1200x900")
     seats.resizable(1,1)
     
@@ -437,7 +411,7 @@ def seats_Airplane():
         aluminio()
         aluminio.deiconify()
 
-    aluminio_buttom = tk.Button(seats, text="Aluminio", font = ("Times New Roman", 14), command=categoria_alum , bg = "light blue")
+    aluminio_buttom = tk.Button(seats, text="Aluminium", font = ("Times New Roman", 14), command=categoria_alum , bg = "light blue")
     aluminio_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def categoria_diam():
@@ -445,7 +419,7 @@ def seats_Airplane():
         diamante()
         diamante.deiconify()
 
-    diamante_buttom = tk.Button(seats, text="Diamante", font = ("Times New Roman",14), command = categoria_diam ,bg = "light green")
+    diamante_buttom = tk.Button(seats, text="Diamond", font = ("Times New Roman",14), command = categoria_diam ,bg = "light green")
     diamante_buttom.place(relx= 0.55, rely= 0.44, anchor= "n")
 
     def categoria_premium():
@@ -496,7 +470,7 @@ def cambiar_color_asiento(asientos):
 
 def aluminio():
     windows_alum = tk.Tk()
-    windows_alum.title("Asientos en aluminio")
+    windows_alum.title("Aluminium Seats")
     windows_alum.geometry("1200x900")
     windows_alum.configure(bg="#FFF9ED")
 
@@ -509,7 +483,7 @@ def aluminio():
     asientos = crear_asientos_alum(frame_alum, row_alum, column_alum)
 
 
-    alum_buttom = tk.Button(windows_alum, text="Aluminio", font = ("Times New Roman", 14),
+    alum_buttom = tk.Button(windows_alum, text="Aluminium", font = ("Times New Roman", 14),
                     command=lambda: cambiar_color_asiento(asientos), bg = "light blue")
     alum_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
@@ -558,7 +532,7 @@ def cambiar_color_asiento_diam(diam_asientos):
 
 def diamante ():
     windows_diam = tk.Tk()
-    windows_diam.title("Asiento en Diamante")
+    windows_diam.title("Diamond Seats")
     windows_diam.geometry("1200x900")
     windows_diam.configure(bg="#FFF9ED")
 
@@ -571,7 +545,7 @@ def diamante ():
     diam_asientos = crear_asientos_diam(frame_diam, row_diam, column_diam)
 
 
-    diam_buttom = tk.Button(windows_diam, text="Diamante", font = ("Times New Roman", 14),
+    diam_buttom = tk.Button(windows_diam, text="Diamond", font = ("Times New Roman", 14),
                     command=lambda: cambiar_color_asiento_diam(diam_asientos), bg = "lightgreen")
     diam_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
@@ -616,7 +590,7 @@ def cambiar_color(boton):
 
 def premium ():
     windows_prem = tk.Tk()
-    windows_prem.title("Asiento en Premium")
+    windows_prem.title("Premium Seats")
     windows_prem.geometry("1200x900")
     windows_prem.configure(bg="#FFF9ED")
 
@@ -633,6 +607,8 @@ def premium ():
 
     prem_buttom = tk.Button(windows_prem, text="Premium", font = ("Times New Roman", 14) , bg = "lightcoral")
     prem_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
+
+    
 
     pay_premium = tk.Button(windows_prem, text="Pay flight", font = ("Times New Roman", 14), command=pago_ , bg = "lightcoral")
     pay_premium.place(relx= 0.55, rely= 0.6, anchor= "n")
@@ -653,20 +629,20 @@ def premium ():
 
 def medio_pago():
     pago = tk.Tk()
-    pago.title("Medios de pago")
+    pago.title("Payment Methods")
     pago.geometry("800x600")
     pago.resizable(0,0)
 
-    dato_label = tk.Label(pago, text="Datos de la Tarjeta", font=("Arial", 16))
+    dato_label = tk.Label(pago, text="Card Data", font=("Arial", 16))
     dato_label.place(relx=0.4, rely=0.01)
 
-    pago_label = tk.Label(pago, text="Nombre del titular", font=("Arial", 13))
+    pago_label = tk.Label(pago, text="Owner Name", font=("Arial", 13))
     pago_label.place(relx=0.22, rely=0.17)
 
     pago_entry = tk.Entry(pago, font=("Arial", 13), bg="lightgreen")
     pago_entry.place(relx=0.3, rely=0.22, anchor="n")
 
-    number_label = tk.Label(pago, text="Numero de tarjeta", font=("Arial", 13))
+    number_label = tk.Label(pago, text="Card Number", font=("Arial", 13))
     number_label.place(relx=0.22, rely=0.27)
 
     numero_entry = tk.Entry(pago, font=("Arial", 13), bg="lightgreen")
@@ -678,16 +654,21 @@ def medio_pago():
     cvv_entry = tk.Entry(pago, font=("Arial", 13), bg="lightgreen")
     cvv_entry.place(relx=0.3, rely=0.42, anchor="n")
 
-    vencimiento_label = tk.Label(pago, text="Fecha de vencimiento (MM/AA)", font=("Arial", 13))
+    vencimiento_label = tk.Label(pago, text="Due Date (MM/AA)", font=("Arial", 13))
     vencimiento_label.place(relx=0.16, rely=0.47)
 
     vencimiento_entry = tk.Entry(pago, font=("Arial", 13), bg="lightgreen")
     vencimiento_entry.place(relx=0.3, rely=0.52, anchor="n")
 
-    total_pagar = tk.Label(pago, text="Total a pagar: (ejemplo) $2.225.000", font=("Arial", 13))
+    total_pagar = tk.Label(pago, text="Total to Pay: (ejemplo) $2.225.000", font=("Arial", 13))
     total_pagar.place(relx=0.35, rely=0.6)
 
-    pay_button = tk.Button(pago, text="Pay", font=("Arial", 13), bg="lightblue")
+    def go_ticket():
+        pago.destroy()
+        tickete()
+        tickete.deiconify()
+
+    pay_button = tk.Button(pago, text="Pay", font=("Arial", 13),command=go_ticket, bg="lightblue")
     pay_button.place(relx=0.5, rely=0.65, anchor="n")
 
     def regresar_premium():
@@ -701,13 +682,52 @@ def medio_pago():
 
     pago.mainloop()
 
+#================================================Tiquete de viaje========================================================================================
 #========================================================================================================================================
 #========================================================================================================================================
-#========================================================================================================================================
+
+def tickete():
+    ticket = tk.Tk()
+    ticket.title("Bording Pass")
+    ticket.geometry("800x600")
+    ticket.resizable(0,0)
+
+    ticket_frame = tk.Frame(ticket,bg="darkblue")
+    ticket_frame.place(relx= 0.5, rely= 0.5, anchor= "center", height= 200, width= 500)
+
+    
+
+    title_label = tk.Label(ticket_frame, text="Bording Pass", font=("Arial", 14),fg="white",bg="darkblue")
+    title_label.pack()
+
+    ticket_frame1 = tk.Frame(ticket,bg="pink")
+    ticket_frame1.place(relx= 0.5, rely= 0.53, anchor= "center", height= 173, width= 500)
+
+
+
+
+    name_label = tk.Label(ticket_frame1, text="Name passenger", font=("Arial", 12),fg="black",bg="pink")
+    name_label.place(relx=0.1,rely=0.06)
+    
+    origin_label = tk.Label(ticket_frame1, text="Origin", font=("Arial", 12),fg="black",bg="pink")
+    origin_label.place(relx=0.1,rely=0.4)
+
+    destiny_label = tk.Label(ticket_frame1, text="Destiny", font=("Arial", 12),fg="black",bg="pink")
+    destiny_label.place(relx=0.1,rely=0.7)
+
+    vuelo_label = tk.Label(ticket_frame1, text="Vuelo", font=("Arial", 12),fg="black",bg="pink")
+    vuelo_label.place(relx=0.6,rely=0.3)
+
+    date_label = tk.Label(ticket_frame1, text="Date", font=("Arial", 12),fg="black",bg="pink")
+    date_label.place(relx=0.8,rely=0.3)
+
+    hour_label = tk.Label(ticket_frame1, text="Hour", font=("Arial", 12),fg="black",bg="pink")
+    hour_label.place(relx=0.8, rely=0.7)
+    
 
 
 if __name__ == '__main__':
-    
+    tickete()
     inicio_sesion()    
     
 #la ventana del Check-in esta hecha en google keep
