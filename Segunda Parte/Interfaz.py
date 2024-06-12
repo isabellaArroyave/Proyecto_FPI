@@ -511,15 +511,14 @@ def aluminio():
 #========================================================================================================================================
 def crear_asientos_diam(frame_diam, row_diam, column_diam):
     diam_asientos = []
-    for r in range(row_diam):
+    for r in range(4, 4 + row_diam):
         for c in range(column_diam):
             asiento_id_diam = f"{chr(65+c)}{r+1}"
-            if 1 <= (r+1) <= 4:
-                bg_color = "lightgreen" if 1 <= (r+1) <= 4 else "white"
+            bg_color = "lightgreen" if r < 8 else "white"
             
             etiqueta_diam = tk.Label(frame_diam, text=asiento_id_diam, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
-            etiqueta_diam.grid(row=r, column=c, padx=5, pady=5)
+            etiqueta_diam.grid(row=r-4, column=c, padx=5, pady=5)
             diam_asientos.append(etiqueta_diam)
     return diam_asientos
 
@@ -576,16 +575,15 @@ def diamante ():
 def crear_asientos_prem(frame_prem, row_prem, column_prem):
     prem_asientos = []
 
-    for r in range(row_prem):
+    for r in range(8, 8 + row_prem):
         for c in range(column_prem):
             asiento_id_prem = f"{chr(65+c)}{r+1}"
-            if 1 <= (r+1) <= 4:
-                bg_color = "lightcoral" if 1 <= (r+1) <= 4 else "white"
+            bg_color = "lightcoral" if 8 <= (r+1) <= 11 else "white"
             
             etiqueta_prem = tk.Button(frame_prem, text=asiento_id_prem, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
             etiqueta_prem.config(command=lambda b= etiqueta_prem: cambiar_color(b, prem_asientos))
-            etiqueta_prem.grid(row=r, column=c, padx=5, pady=5)
+            etiqueta_prem.grid(row=r-8, column=c, padx=5, pady=5)
             prem_asientos.append(etiqueta_prem)
     return prem_asientos
 
