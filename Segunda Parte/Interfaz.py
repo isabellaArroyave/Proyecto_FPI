@@ -578,7 +578,7 @@ def crear_asientos_prem(frame_prem, row_prem, column_prem):
     for r in range(8, 8 + row_prem):
         for c in range(column_prem):
             asiento_id_prem = f"{chr(65+c)}{r+1}"
-            bg_color = "lightcoral" if 8 <= (r+1) <= 11 else "white"
+            bg_color = "lightcoral" if 8 <= (r+1) <= 12 else "white"
             
             etiqueta_prem = tk.Button(frame_prem, text=asiento_id_prem, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
