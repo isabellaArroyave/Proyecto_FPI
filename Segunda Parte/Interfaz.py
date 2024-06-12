@@ -450,7 +450,7 @@ def crear_asientos_alum(frame_alum, row_alum, column_alum):
         for c in range(column_alum):
             asiento_id_alum = f"{chr(65+c)}{r+1}"
             if 1 <= (r+1) <= 4:
-                bg_color = "lightblue"
+                bg_color = "lightblue" if 1 <= (r+1) <= 4 else "white"
             elif 5 <= (r+1) <= 8:
                 bg_color = "lightgreen"
             else:
@@ -461,10 +461,11 @@ def crear_asientos_alum(frame_alum, row_alum, column_alum):
             asientos.append(etiqueta_alum)
     return asientos
 
-def cambiar_color_asiento(asientos):
+def cambiar_color_asiento(asientos, boton):
     if asientos:
         asiento = random.choice(asientos)
-        asiento.config(bg="orange")    
+        asiento.config(bg="orange") 
+        boton.config(state=tk.DISABLED)   
 
 def aluminio():
     windows_alum = tk.Tk()
@@ -482,7 +483,7 @@ def aluminio():
 
 
     alum_buttom = tk.Button(windows_alum, text="Aluminium", font = ("Times New Roman", 14),
-                    command=lambda: cambiar_color_asiento(asientos), bg = "light blue")
+                    command=lambda: cambiar_color_asiento(asientos, alum_buttom), bg = "light blue")
     alum_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def pago_():
@@ -514,7 +515,7 @@ def crear_asientos_diam(frame_diam, row_diam, column_diam):
         for c in range(column_diam):
             asiento_id_diam = f"{chr(65+c)}{r+1}"
             if 1 <= (r+1) <= 4:
-                bg_color = "lightgreen"
+                bg_color = "lightgreen" if 1 <= (r+1) <= 4 else "white"
             
             etiqueta_diam = tk.Label(frame_diam, text=asiento_id_diam, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
@@ -522,10 +523,11 @@ def crear_asientos_diam(frame_diam, row_diam, column_diam):
             diam_asientos.append(etiqueta_diam)
     return diam_asientos
 
-def cambiar_color_asiento_diam(diam_asientos):
+def cambiar_color_asiento_diam(diam_asientos, boton):
     if diam_asientos:
         asiento_diam = random.choice(diam_asientos)
         asiento_diam.config(bg="orange")
+        boton.config(state=tk.DISABLED)
     
 
 def diamante ():
@@ -544,7 +546,7 @@ def diamante ():
 
 
     diam_buttom = tk.Button(windows_diam, text="Diamond", font = ("Times New Roman", 14),
-                    command=lambda: cambiar_color_asiento_diam(diam_asientos), bg = "lightgreen")
+                    command=lambda: cambiar_color_asiento_diam(diam_asientos, diam_buttom), bg = "lightgreen")
     diam_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
 
     def pago_():
@@ -572,19 +574,26 @@ def diamante ():
 #========================================================================================================================================
 
 def crear_asientos_prem(frame_prem, row_prem, column_prem):
+    prem_asientos = []
+
     for r in range(row_prem):
         for c in range(column_prem):
             asiento_id_prem = f"{chr(65+c)}{r+1}"
             if 1 <= (r+1) <= 4:
-                bg_color = "lightcoral"
+                bg_color = "lightcoral" if 1 <= (r+1) <= 4 else "white"
             
             etiqueta_prem = tk.Button(frame_prem, text=asiento_id_prem, width=5, height=2, 
                                 bg= bg_color, relief="raised", borderwidth=1)
-            etiqueta_prem.config(command=lambda b= etiqueta_prem: cambiar_color(b))
+            etiqueta_prem.config(command=lambda b= etiqueta_prem: cambiar_color(b, prem_asientos))
             etiqueta_prem.grid(row=r, column=c, padx=5, pady=5)
+            prem_asientos.append(etiqueta_prem)
+    return prem_asientos
 
-def cambiar_color(boton):
+def cambiar_color(boton, prem_asientos):
     boton.config(bg="orange")
+    for asiento in prem_asientos:
+        asiento.config(state=tk.DISABLED)
+
 
 def premium ():
     windows_prem = tk.Tk()
@@ -620,8 +629,6 @@ def premium ():
     back_premium_button.place(relx=0.2, rely=0.65, anchor="n")
 
     crear_asientos_prem(frame_prem, row_prem, column_prem)
-
-
 
     windows_prem.mainloop()    
 
@@ -710,7 +717,7 @@ def tickete():
     origin_label = tk.Label(ticket_frame1, text="Origin", font=("Arial", 12),fg="black",bg="pink")
     origin_label.place(relx=0.1,rely=0.4)
 
-    destiny_label = tk.Label(ticket_frame1, text="Destiny", font=("Arial", 12),fg="black",bg="pink")
+    destiny_label = tk.Label(ticket_frame1, text="Destination", font=("Arial", 12),fg="black",bg="pink")
     destiny_label.place(relx=0.1,rely=0.7)
 
     vuelo_label = tk.Label(ticket_frame1, text="Vuelo", font=("Arial", 12),fg="black",bg="pink")
