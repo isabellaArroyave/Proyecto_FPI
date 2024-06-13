@@ -242,8 +242,13 @@ def log_in():
 
     e_text = tk.Entry(sesion, font = ("Times New Roman", 14), bg="#58FF9F")
     e_text.place(relx= 0.5, rely= 0.45, anchor= "n")
+
+    def check():
+        sesion.destroy()
+        check_in()
+
     
-    sesion_buttom = tk.Button(sesion, text = "Check-in", font = ("Times New Roman", 14), bg = "light green")
+    sesion_buttom = tk.Button(sesion, text = "Check-in", font = ("Times New Roman", 14), command=check, bg = "light green")
     sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50) 
     
     sesion_buttom = tk.Button(sesion, text = "Log in", font = ("Times New Roman", 14), command = enter_data, bg = "light green")
@@ -251,18 +256,59 @@ def log_in():
 
     sesion.mainloop()
 
+#============================Ventana check in=====================================================================================
+#============================================================================================================================================
+#========================================================================================================================================
+
+
+def check_in():
+    check = tk.Tk()
+    check.title("Airlines")
+    check.geometry("800x600")
+    check.configure(bg = "pink")
+    check.resizable(0,0)
+
+    code_label = tk.Label(check, text="Code", font=("Times New Roman", 18), bg="pink")
+    code_label.place(relx=0.24, rely=0.4)
+
+    code_entry = tk.Entry(check, font=("Arial", 14))
+    code_entry.place(relx=0.15, rely=0.47)
+    
+    last_name_label = tk.Label(check, text="Last Name", font=("Times New Roman", 18), bg="pink")
+    last_name_label.place(relx=0.62, rely=0.4)
+
+    last_name_entry = tk.Entry(check, font=("Arial", 14))
+    last_name_entry.place(relx=0.55, rely=0.47)
+    
+
+    def pase_asiento():
+        check.destroy()
+        ticket(mensaje, 1)
+
+    check_in_button = tk.Button(check, text="Check-in", font=("Times New Roman", 14),command=pase_asiento, bg="light green")
+    check_in_button.place(relx=0.5, rely=0.7, anchor="n")
+
+    check.mainloop()
+
+
+
+
 
 
 #============================Ventanas de los 100 botones=====================================================================================
 #============================================================================================================================================
 #========================================================================================================================================
-
 def flights_m():
-    with open("datos_vuelos.txt", "r") as vuelos:
-        vuelos = vuelos.read()
-        vuelos = vuelos.split("\n")
-        vuelos = [vuelo.split(",") for vuelo in vuelos]
-    return vuelos
+    flights = []
+    with open('flights1.txt', 'r') as file:
+        for line in file:
+            flight_data = line.strip().split(',')
+            flight_data[4] = int(flight_data[4])
+            flight_data[5] = int(flight_data[5])
+            flight_data[6] = int(flight_data[6])
+            flights.append(flight_data)
+    return flights
+
 
 def filter_flights_by_route(origin, destination):
     flights = flights_m()
@@ -466,6 +512,8 @@ def aluminium(mensaje):
     windows_alum.geometry("1200x900")
     windows_alum.configure(bg="#FFF9ED")
 
+    alum_seats = []
+
     row_alum = 4  # Número de filas de seats
     column_alum = 6  # Número de columnas de seats
     frame_alum = tk.Frame(windows_alum, bg="#FFF9ED")
@@ -478,6 +526,7 @@ def aluminium(mensaje):
     alum_buttom = tk.Button(windows_alum, text="Aluminium", font = ("Times New Roman", 14),
                     command=lambda: switch_color_seat(seats, alum_buttom, mensaje), bg = "light blue")
     alum_buttom.place(relx= 0.55, rely= 0.2, anchor= "n")
+    
     print(mensaje)
 
     def payment_(mensaje):
@@ -681,7 +730,7 @@ def pay_method(mensaje):
 
     def go_ticket(mensaje):
         payment.destroy()
-        ticket(mensaje)
+        ticket(mensaje, 0)
         ticket_v.deiconify()
     def comprobar_saldo(valor,mensaje):
         print(valor)
@@ -713,7 +762,7 @@ def pay_method(mensaje):
 #========================================================================================================================================
 #========================================================================================================================================
 
-def ticket(mensaje):
+def ticket(mensaje,tipo):
     global ticket_v
     ticket_v = tk.Tk()
     ticket_v.title("Bording Pass")
@@ -761,8 +810,12 @@ def ticket(mensaje):
     hour_label = tk.Label(ticket_frame1, text=f"Hour {mensaje[2]} - {mensaje[3]}", font=("Arial", 12),fg="black",bg="pink")
     hour_label.place(relx=0.8, rely=0.7)
     
-    boton_confirmar = tk.Button(ticket_frame1, text="Confirm", font=("Arial", 13),command= lambda: (ticket_v.destroy(), guardar_informacion_vuelo(mensaje), log_in()), bg="lightblue")
+    boton_confirmar = tk.Button(ticket_frame1, text="Confirm", font=("Arial", 13),command= lambda: (ticket_v.destroy(), log_in(), guardar_informacion_vuelo(mensaje) ), bg="lightblue")
     boton_confirmar.place(relx=0.5, rely=0.9, anchor="n")
+
+    if tipo == 1:
+        show_seats = tk.Label(ticket_frame1, text=f"Asiento : {mensaje[0]}", font=("Arial", 12),fg="black",bg="pink")
+        show_seats.place(relx=0.6,rely=0.45)
     
 
 def guardar_informacion_vuelo(mensaje):
