@@ -254,6 +254,7 @@ def email_verification():
             
 def log_in():
     global sesion, e_text
+    mensaje = []
     sesion = tk.Tk()
     sesion.resizable(1,1)
     sesion.title("Log in")
@@ -274,13 +275,15 @@ def log_in():
 
     e_text = tk.Entry(sesion, font = ("Arial", 11), bg="white")
     e_text.place(relx= 0.5, rely= 0.5, anchor= "n", width=200, height=40)
-
-    def check():
+    mensaje.append(e_text.get())
+    
+    def check(mensaje):
         sesion.destroy()
-        check_in()
+        check_in(mensaje)
+    
 
     
-    sesion_buttom = tk.Button(sesion, text = "Check-in", font = ("arial", 11), command=check, bg = "#FF7D81")
+    sesion_buttom = tk.Button(sesion, text = "Check-in", font = ("arial", 11), command=lambda:check(mensaje), bg = "#FF7D81")
     sesion_buttom.pack(side = "bottom", anchor = "s", pady= 50) 
     
     sesion_buttom = tk.Button(sesion, text = "Log in", font = ("arial", 11), command = enter_data, bg = "#FF7D81")
@@ -293,7 +296,7 @@ def log_in():
 #========================================================================================================================================
 
 
-def check_in():
+def check_in(mensaje):
     check = tk.Tk()
     check.title("Airlines")
     check.geometry("1200x950")
@@ -305,25 +308,24 @@ def check_in():
 
     code_entry = tk.Entry(check, font=("Arial", 14))
     code_entry.place(relx=0.15, rely=0.47)
-    
+    mensaje.append(code_entry.get())
     lastname_label = tk.Label(check, text="Last Name", font=("Times New Roman", 18), bg="pink")
     lastname_label.place(relx=0.64, rely=0.4)
 
     lastname_entry = tk.Entry(check, font=("Arial", 14))
     lastname_entry.place(relx=0.55, rely=0.47)
-
+    mensaje.append(lastname_entry.get())
 
     
-    
-
-    def pase_asiento():
+    def pase_asiento(mensaje):
         check.destroy()
-        ticket(mensaje, 1)
+        ticket(mensaje)
 
-    check_in_button = tk.Button(check, text="Check-in", font=("Times New Roman", 14),command=pase_asiento, bg="light green")
+    check_in_button = tk.Button(check, text="Check-in", font=("Times New Roman", 14),command=lambda: pase_asiento(mensaje), bg="light green")
     check_in_button.place(relx=0.5, rely=0.6, anchor="n")
 
     check.mainloop()
+
 
 
 
@@ -1117,7 +1119,7 @@ def ticket(mensaje,tipo):
     hour_label = tk.Label(ticket_frame1, text=f"Hour {mensaje[2]} - {mensaje[3]}", font=("Arial", 12),fg="black",bg="pink")
     hour_label.place(relx=0.8, rely=0.7)
     
-    boton_confirmar = tk.Button(ticket_frame1, text="Confirm", font=("Arial", 13),command= lambda: (ticket_v.destroy(), log_in(), guardar_informacion_vuelo(mensaje) ), bg="lightblue")
+    boton_confirmar = tk.Button(ticket_frame1, text="Confirm", font=("Arial", 13),command= lambda: (ticket_v.destroy(),guardar_informacion_vuelo(mensaje),guardar_informacion_vuelo(mensaje),log_in()), bg="lightblue")
     boton_confirmar.place(relx=0.5, rely=0.9, anchor="n")
 
     if tipo == 1:
@@ -1126,7 +1128,31 @@ def ticket(mensaje,tipo):
     
 
 def guardar_informacion_vuelo(mensaje):
-    file_path = fr"datos_vuelos/vuelo_{mensaje[0]}.txt"
+    print("Pase")
+    correo_persona = mensaje[9][5]
+    with open("user_data.txt", "r") as file:
+        datos = file.read()
+        datos = datos.split("\n")
+        datos = [dato.split(",") for dato in datos]
+    
+
+    with open("user_data_flight.txt", "w") as file:
+        for dato in datos:
+            datos_enviar =[]
+            if dato[6]== correo_persona:
+                datos_enviar.append(mensaje[12])
+                datos_enviar.append(mensaje[0])
+                datos_enviar.append(dato[6])
+                datos_enviar.append(dato[2])
+
+            file.write(",".join(datos_enviar))
+            file.write("\n")
+            
+
+    
+
+
+    file_path = fr"vuelo_{mensaje[0]}.txt"
     if os.path.exists(file_path):
         with open(file_path, "a") as file:
             file.write(f"{mensaje[0]},")

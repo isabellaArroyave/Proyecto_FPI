@@ -1,0 +1,7 @@
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,D3,Aluminium,a,a-u2CH8S
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,D3,Aluminium,a,a-u2CH8S
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,E3,Aluminium,a,a-v5RPgE
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,F3,Aluminium,a,a-VgNMcx
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,F3,Aluminium,a,a-VgNMcx
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,A4,Aluminium,a,a-KxERxr
+P636,2024-06-12,10:52:00,12:50:00,183918,Santa Marta,Bogota,A4,Aluminium,a,a-KxERxr
