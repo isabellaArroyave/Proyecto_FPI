@@ -189,27 +189,27 @@ def main_windows():
         log_in()
 
     check_in_button = tk.Button(main_framed, text="Sign in", font=("Arial", 14), command=windows_check_in, bg="light green")
-    check_in_button.pack(side="bottom", pady=20)
+    check_in_button.place(relx=0.5, rely=0.6, anchor="center")
 
     windows.mainloop()
 
-    def windows_check_in():
-        read_user()
-        windows.destroy()
-        log_in()
+    # def windows_check_in():
+    #     read_user()
+    #     windows.destroy()
+    #     log_in()
 
-    check_in_button = tk.Button(main_framed, text="Sign in to", font=("Times New Roman", 14), command=windows_check_in, bg="light green")
-    check_in_button.pack(side="bottom", anchor="s", pady=50)
+    # check_in_button = tk.Button(windows, text="Sign in to", font=("Times New Roman", 14), command=windows_check_in, bg="light green")
+    # check_in_button.pack(side="bottom", anchor="s", pady=50)
 
-    windows.mainloop()
+    # windows.mainloop()
 
-    def windows_check_in():
-        read_user()
-        windows.destroy()
-        log_in()
+    # def windows_check_in():
+    #     read_user()
+    #     windows.destroy()
+    #     log_in()
 
-    check_in_buttom = tk.Button(windows, text="Sign in to", font = ("Times New Roman", 14), command = windows_check_in, bg = "light green")
-    check_in_buttom.pack(side = "bottom", anchor = "s", pady= 50)
+    # check_in_buttom = tk.Button(windows, text="Sign in to", font = ("Times New Roman", 14), command = windows_check_in, bg = "light green")
+    # check_in_buttom.pack(side = "bottom", anchor = "s", pady= 50)
 
 #==================================================Ventanas de inicio sesion=======================================================
 #========================================================================================================================================
@@ -592,45 +592,45 @@ def seats_Airplane(mensaje):
     premium_label = tk.Button(seats, text="Premium", font=("Arial", 13), bg="#C7A780", command=lambda: premium_category(mensaje))
     premium_label.place(relx=0.4, rely=0.82)
 
-    aluminio_info = tk.Label(seats, bg="#D5E6B0", text="""1 artículo personal (bolso) (Debe caber debajo del asiento)
+    aluminio_info = tk.Label(seats, bg="#D5E6B0", text="""1 personal item (bag) (Must fit under the seat)
 
-1 equipaje de mano (10 kg) (Desde $195.100 COP)
+1 carry-on baggage (10 kg) (From $195,100 COP)
 
-Equipaje de bodega (23 kg) (Desde $175.600 COP)
+Checked baggage (23 kg) (From $175,600 COP)
 
-Asiento Economy (Aleatoria-clasificado Aluminio)
+Economy Seat (Randomly assigned - Aluminum class)
 
-Cambios de vuelo (No es permitido)
+Flight changes (Not allowed)
 
-Reembolso (No es permitido)""", font=("Arial", 10), wraplength=260, anchor='w', borderwidth=1, highlightbackground="black", highlightthickness=3)
+Refund (Not allowed)""", font=("Arial", 10), wraplength=260, anchor='w', borderwidth=1, highlightbackground="black", highlightthickness=3)
 
     aluminio_info.place(relx=0.2, rely=0.17, anchor="center", width=280, height=280)
 
-    diamante_info = tk.Label(seats, bg="#A0C2E5", text="""1 artículo personal (bolso) (Debe caber debajo del asiento)
+    diamante_info = tk.Label(seats, bg="#A0C2E5", text="""1 personal item (bag) (Must fit under the seat)
 
-1 equipaje de bodega (23 kg) (Debe caber en el compartimiento superior)
+1 checked baggage (23 kg) (Must fit in the overhead compartment)
 
-1 equipaje de mano (10 kg) (Entrega el equipaje en el counter)
+1 carry-on baggage (10 kg) (Drop off the baggage at the counter)
 
-Asiento Economy (Filas específicas disponibles de manera aleatoria)
+Economy Seat (Specific rows available randomly)
 
-Cambios de vuelo (No es permitido)
+Flight changes (Not allowed)
 
-Reembolso (No es permitido)""", font=("Arial", 10), wraplength=260, anchor='w', borderwidth=1, highlightbackground="black", highlightthickness=3)
+Refund (Not allowed)""", font=("Arial", 10), wraplength=260, anchor='w', borderwidth=1, highlightbackground="black", highlightthickness=3)
 
     diamante_info.place(relx=0.2, rely=0.5, anchor="center", width=280, height=280)
 
-    premium_info = tk.Label(seats, bg="#FF7D81", text="""1 artículo personal (bolso) (Debe caber debajo del asiento)
+    premium_info = tk.Label(seats, bg="#FF7D81", text="""1 personal item (bag) (Must fit under the seat)
 
-1 equipaje de mano (10 kg) (Debe caber en el compartimiento superior)
+1 carry-on baggage (10 kg) (Must fit in the overhead compartment)
 
-1 equipaje de bodega (23 kg) (Entrega el equipaje en el counter)
+1 checked baggage (23 kg) (Drop off the baggage at the counter)
 
-Asiento Plus (Sujeto a disponibilidad-clasificado Premium)
+Plus Seat (Subject to availability - Premium class)
 
-Cambios de vuelo (Sin cargo por cambio, antes del vuelo)
+Flight changes (No change fee, before the flight)
 
-Reembolso (No es permitido)""", font=("Arial", 10), wraplength=260, anchor='w', borderwidth=1, highlightbackground="black", highlightthickness=3)
+Refund (Not allowed)""", font=("Arial", 10), wraplength=260, anchor='w', borderwidth=1, highlightbackground="black", highlightthickness=3)
 
     premium_info.place(relx=0.2, rely=0.83, anchor="center", width=280, height=280)
 
