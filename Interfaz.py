@@ -1054,7 +1054,7 @@ def pay_method(mensaje):
             log_in()
             
     pay_button = tk.Button(payment, text="Pay", font=("Arial", 13),command=lambda:(comprobar_saldo(saldo,mensaje)), bg="lightblue")
-    pay_button.place(relx=0.5, rely=0.65, anchor="n")
+    pay_button.place(relx=0.5, rely=0.7, anchor="n")
 
     def back_to_premium():
         payment.destroy()
